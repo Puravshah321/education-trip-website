@@ -6,19 +6,19 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>package</title>
 
-   <!-- swiper css link  -->
+   <!-- swiper css link -->
    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-   <!-- font awesome cdn link  -->
+   <!-- font awesome cdn link -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-   <!-- custom css file link  -->
+   <!-- custom css file link -->
    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
    
-<!-- header section starts  -->
+<!-- header section starts -->
 
 <section class="header">
 
@@ -41,7 +41,144 @@
    <h1>packages</h1>
 </div>
 
-<!-- packages section starts  -->
+<!-- FILTERS SECTION STARTS -->
+
+<section class="services">
+
+   <h1 class="heading-title">Select Filters </h1>
+
+   <div class="box-container">
+
+   <div class="box">
+         <div class="image">
+            <img src="images/icon-1.png" alt="">
+         </div>
+         <div class="content">
+            <h3>Duration</h3>
+            <form>
+               <select>
+                  <option value="all">All</option>
+                  <option value="1-day">1 Day</option>
+                  <option value="2-day">1N/2D</option>
+                  <option value="3-day">2N/3D</option>
+                  <option value="4-day">3N/4D</option>
+                  <option value="5-day">4N/5D</option>
+                  <option value="6-day">5N/6D</option>
+                  <option value="7-day">6N/7D</option>
+               </select>
+            </form>
+         </div>
+      </div>
+
+      <div class="box">
+         <div class="image">
+            <img src="images/icon-2.png" alt="">
+         </div>
+         <div class="content">
+            <h3>State</h3>
+            <form>
+               <select>
+                  <option value="all">All</option>
+                  <option value="andhra-pradesh">Andhra Pradesh</option>
+                  <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                  <option value="assam">Assam</option>
+                  <option value="bihar">Bihar</option>
+                  <option value="chhattisgarh">Chhattisgarh</option>
+                  <option value="goa">Goa</option>
+                  <option value="gujarat">Gujarat</option>
+                  <option value="haryana">Haryana</option>
+                  <option value="himachal-pradesh">Himachal Pradesh</option>
+                  <option value="jammu-kashmir">Jammu and Kashmir</option>
+                  <option value="jharkhand">Jharkhand</option>
+                  <option value="karnataka">Karnataka</option>
+                  <option value="kerala">Kerala</option>
+                  <option value="madhya-pradesh">Madhya Pradesh</option>
+                  <option value="maharashtra">Maharashtra</option>
+                  <option value="manipur">Manipur</option>
+                  <option value="meghalaya">Meghalaya</option>
+                  <option value="mizoram">Mizoram</option>
+                  <option value="nagaland">Nagaland</option>
+                  <option value="odisha">Odisha</option>
+                  <option value="punjab">Punjab</option>
+                  <option value="rajasthan">Rajasthan</option>
+                  <option value="sikkim">Sikkim</option>
+                  <option value="tamil-nadu">Tamil Nadu</option>
+                  <option value="telangana">Telangana</option>
+                  <option value="tripura">Tripura</option>
+                  <option value="uttar-pradesh">Uttar Pradesh</option>
+                  <option value="uttarakhand">Uttarakhand</option>
+                  <option value="west-bengal">West Bengal</option>
+               </select>
+            </form>
+         </div>
+      </div>
+
+      <div class="box">
+         <div class="image">
+            <img src="images/icon-3.png" alt="">
+         </div>
+         <div class="content">
+            <h3>Grade</h3>
+            <form>
+               <select>
+                  <option value="all">All</option>
+                  <option value="primary">Primary</option>
+                  <option value="secondary">Secondary</option>
+                  <option value="higher-secondary">Higher Secondary</option>
+               </select>
+            </form>
+         </div>
+      </div>
+      
+
+      <div class="box">
+    <div class="image">
+        <img src="images/icon-4.png" alt="">
+    </div>
+    <div class="content">
+        <h3>Season</h3>
+        <form>
+            <select>
+                <option value="all">All</option>
+                <option value="summer">Summer</option>
+                <option value="autumn">Autumn</option>
+                <option value="winter">Winter</option>
+                <option value="spring">Spring</option>
+            </select>
+        </form>
+    </div>
+</div>
+
+
+<div class="box">
+    <div class="image">
+        <img src="images/icon-5.png" alt="">
+    </div>
+    <div class="content">
+        <h3>Categories</h3>
+        <form>
+            <select>
+                <option value="all">All</option>
+                <option value="history">History</option>
+                <option value="science">Science</option>
+                <option value="nature">Nature</option>
+                <option value="art-and-culture">Art & Culture</option>
+                <option value="technology">Technology</option>
+                <option value="adventure">Adventure</option>
+            </select>
+        </form>
+    </div>
+</div>
+
+
+   </div>
+
+</section>
+<!-- FILTERS SECTION ENDS -->
+
+
+
+<!-- packages section starts -->
 
 <section class="packages">
 
@@ -188,23 +325,7 @@
 </section>
 
 <!-- packages section ends -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- footer section starts  -->
+<!-- footer section starts -->
 
 <section class="footer">
 
@@ -252,16 +373,12 @@
 
 
 
+   
 
-
-
-
-
-
-<!-- swiper js link  -->
+<!-- swiper js link -->
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
-<!-- custom js file link  -->
+<!-- custom js file link -->
 <script src="js/script.js"></script>
 
 </body>
