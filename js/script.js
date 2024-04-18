@@ -57,3 +57,46 @@ loadMoreBtn.onclick = () =>{
       loadMoreBtn.style.display = 'none';
    }
 }
+
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+   // Get all select elements
+   const selects = document.querySelectorAll('.content select');
+
+   // Iterate over each select element
+   selects.forEach(select => {
+      // Add change event listener to each select
+      select.addEventListener('change', function () {
+         const selectedOption = this.value; // Get the selected option
+         const box = this.closest('.box'); // Get the parent box element
+
+         // Filter images based on the selected option
+         filterImages(selectedOption, box);
+      });
+   });
+
+   // Function to filter images
+   function filterImages(option, box) {
+      // Get all images inside the current box
+      const images = box.querySelectorAll('.image img');
+
+      // Iterate over each image
+      images.forEach(image => {
+         // Show or hide images based on the selected option
+         if (option === 'all' || imageMatchesFilter(image, option)) {
+            image.parentElement.style.display = 'block';
+         } else {
+            image.parentElement.style.display = 'none';
+         }
+      });
+   }
+
+   // Function to check if an image matches the selected filter option
+   function imageMatchesFilter(image, option) {
+      // Implement your logic here to determine if the image matches the filter option
+      // For example, you might check if the image has a certain attribute or class
+      // Return true if the image matches the filter option, otherwise return false
+      // Example:
+      // return image.dataset.filter === option;
+   }
+});
