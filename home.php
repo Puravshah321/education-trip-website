@@ -4,6 +4,10 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
    <title>home</title>
 
    <!-- swiper css link  -->
@@ -19,18 +23,61 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+   <style>
+      /* Custom CSS for login and register buttons */
+      .navbar {
+   display: flex; /* Use flexbox to align items */
+   align-items: center; /* Align items vertically in the center */
+}
+
+.navbar a {
+   margin-right: 20px; /* Add margin between navbar links */
+   text-decoration: none;
+   color: #fff;
+}
+
+.navbar .login-register {
+   margin-left: auto;
+}
+
+.navbar .login-register button {
+   color: white;
+   background-color: black;
+   border: none;
+   cursor: pointer;
+   font-size: 16px;
+   margin-left: 20px;
+   padding: 10px 20px;
+   transition: background-color 0.3s ease;
+}
+
+.navbar .login-register button:hover {
+   background-color: #279e8c;
+}
+
+.background {
+   background-color: #000;
+   
+}
+
+   </style>
+
 </head>
 <body>
-   
+
 <!-- header section starts  -->
 
 <section class="header">
-<a href="home.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
+   <a href="home.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
       <a href="home.php" style="text-decoration:none">home</a>
       <a href="about.php" style="text-decoration:none">about</a>
       <a href="package.php" style="text-decoration:none">package</a>
       <a href="book.php" style="text-decoration:none">book</a>
+      <div class="login-register">
+         <button onclick="location.href='login.php'" style="text-decoration:none">Sign In</button>
+         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+      </div>
    </nav>
    
 
@@ -39,6 +86,40 @@
 </section>
 
 <!-- header section ends -->
+
+<!-- Modal for Sign Up -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+        <div class="mb-3">
+            <label for="signupUsername" class="form-label">Username</label>
+            <input type="text" class="form-control" id="signupEmail">
+          </div>
+          <div class="mb-3">
+            <label for="signupEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="signupUsername" >
+          </div>
+          <div class="mb-3">
+            <label for="signupPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="signupPassword">
+          </div>
+          <div class="mb-3">
+            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="signupConfirmPassword">
+          </div>
+          <!-- Add other form fields as needed -->
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- home section starts  -->
 
@@ -120,7 +201,6 @@
          <img src="images/icon-6.png" alt="">
          <h3>camping</h3>
       </div>
-
    </div>
 
 </section>
@@ -274,6 +354,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
-
 </body>
 </html>
