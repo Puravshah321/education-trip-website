@@ -75,8 +75,12 @@
       <a href="package.php" style="text-decoration:none">package</a>
       <a href="book.php" style="text-decoration:none">book</a>
       <div class="login-register">
-         <button onclick="location.href='login.php'" style="text-decoration:none">Sign In</button>
-         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+      <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                Login
+                </button>
+                <button type="button" class="btn btn-outline-dark shadow-none" data-bs-toggle="modal" data-bs-target="#RegisterModal">
+                Register
+                </button>
       </div>
    </nav>
    
@@ -86,40 +90,101 @@
 </section>
 
 <!-- header section ends -->
+      <!-- Register Trigger Modal -->
+    <div class="modal fade" id="RegisterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title d-flex align-items-center">
+                        <i class="fa-solid fa-users-line fs-3 me-2"></i> User Registration <!-- Updated title -->
+                        </h5>
+                        <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <span class="badge bg-light text-dark mb-3 text-wrap lh-base">
+                    Note:Your details must match with your ID(Aadhaar card, Passport , Driving License ,etc.)
+                    that will be required during check-in.
+                    </span>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 ps-0 mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control shadow-none" placeholder="Enter Your Name">
+                            </div>
+                            <div class="col-md-6 p-0 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control shadow-none" placeholder="Enter Your Email">
+                            </div>
+                            <div class="col-md-6 ps-0 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="number" class="form-control shadow-none" placeholder="Enter Your Phone Number">
+                            </div>
+                            <div class="col-md-6 p-0 mb-3">
+                                <label class="form-label">Picture</label>
+                                <input type="file" class="form-control shadow-none">
+                            </div>
+                            <div class="col-md-12 p-0 mb-3">
+                                <label class="form-label">Address</label>
+                                <textarea class="form-control shadow-none" placeholder="Enter Your Address" rows="1"></textarea>
+                            </div>
+                            <div class="col-md-6 ps-0 mb-3">
+                                <label class="form-label">Pincode</label>
+                                <input type="number" class="form-control shadow-none" placeholder="Enter Your Pincode">
+                            </div>
+                            <div class="col-md-6 p-0 mb-3">
+                                <label class="form-label">Date of birth</label>
+                                <input type="date" class="form-control shadow-none">
+                            </div>
+                            <div class="col-md-6 ps-0 mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control shadow-none" placeholder="Enter Your Password">
+                            </div>
+                            <div class="col-md-6 p-0 mb-3">
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control shadow-none" placeholder="Confirm Your Password">
+                            </div>
+                        </div>
+                        <div class="text-center my-1">
+                            <button type="submit" class="btn btn-dark shadow-none">Register</button> 
+                        </div>
+                    </div>
 
-<!-- Modal for Sign Up -->
-<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-        <div class="mb-3">
-            <label for="signupUsername" class="form-label">Username</label>
-            <input type="text" class="form-control" id="signupEmail">
-          </div>
-          <div class="mb-3">
-            <label for="signupEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="signupUsername" >
-          </div>
-          <div class="mb-3">
-            <label for="signupPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="signupPassword">
-          </div>
-          <div class="mb-3">
-            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="signupConfirmPassword">
-          </div>
-          <!-- Add other form fields as needed -->
-          <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
-      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+     <!-- Button Trigger Modal -->
+     <div class="modal fade" id="LoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title d-flex align-items-center">
+                            <i class="fa-solid fa-circle-user fs-3 me-2"></i> User Login
+                        </h5>
+                        <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Email address</label>
+                            <input type="email" class="form-control shadow-none" placeholder="Enter Your Email">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control shadow-none" placeholder="Enter Your Password">
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <button type="submit" class="btn btn-dark shadow-none">Login</button>
+                            <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 <!-- home section starts  -->
 
