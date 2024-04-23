@@ -100,3 +100,26 @@ document.addEventListener('DOMContentLoaded', function () {
       // return image.dataset.filter === option;
    }
 });
+
+
+
+// JavaScript
+document.addEventListener("DOMContentLoaded", function () {
+   // Handle dropdown change
+   const dropdowns = document.querySelectorAll(".dropdown select");
+   dropdowns.forEach(function (dropdown) {
+       dropdown.addEventListener("change", function () {
+           window.location = this.value;
+       });
+   });
+});
+
+
+const form = document.querySelector('form');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const selectedDate = document.querySelector('#dates').value;
+  console.log(`Selected date: ${selectedDate}`);
+  // Add code here to handle the selected date
+});
