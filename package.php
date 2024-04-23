@@ -54,17 +54,13 @@
             <img src="images/icon-1.png" alt="">
          </div>
          <div class="content">
-            <h3>Duration</h3>
+            <h3>Trip Class</h3>
             <form>
                <select>
                   <option value="all">All</option>
-                  <option value="1-day">1 Day</option>
-                  <option value="2-day">1N/2D</option>
-                  <option value="3-day">2N/3D</option>
-                  <option value="4-day">3N/4D</option>
-                  <option value="5-day">4N/5D</option>
-                  <option value="6-day">5N/6D</option>
-                  <option value="7-day">6N/7D</option>
+                  <option value="standard">Standard</option>
+                  <option value="premium">Premium</option>
+                  <option value="economy">Economy</option>
                </select>
             </form>
          </div>
@@ -193,7 +189,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+               <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -204,7 +208,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -215,7 +227,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -226,7 +246,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -237,7 +265,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -248,7 +284,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -259,7 +303,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -270,7 +322,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -281,7 +341,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -292,7 +360,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -303,7 +379,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
@@ -314,7 +398,15 @@
          <div class="content">
             <h3>adventure & tour</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <a href="book.php" class="btn">book now</a>
+            <form>
+               <a href="book.php" class="btn">book now</a>
+               <select class="dropdown">
+                  <option value="" disabled selected>View Dates</option>
+                  <option value="oct">October 21-23</option>
+                  <option value="nov">November 4-6</option>
+                  <option value="dec">December 12-14</option>
+               </select>
+               </form>
          </div>
       </div>
 
