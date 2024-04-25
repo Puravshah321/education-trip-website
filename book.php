@@ -1,3 +1,6 @@
+<?php
+   session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +18,26 @@
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+   <style>
+      /* Custom CSS for login and register buttons */
+      .navbar {
+         display: flex; /* Use flexbox to align items */
+         align-items: center; /* Align items vertically in the center */
+      }
+
+      .navbar a {
+         margin-right: 20px; /* Add margin between navbar links */
+         text-decoration: none;
+         color: #fff;
+      }
+
+      .background {
+         background-color: #000;
+         
+      }
+
+   </style>
+
 </head>
 <body>
    
@@ -22,15 +45,16 @@
 
 <section class="header">
 
-   <a href="home.php" class="logo">travel.</a>
-
+<a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="home.php">home</a>
-      <a href="about.php">about</a>
-      <a href="package.php">package</a>
-      <a href="book.php">book</a>
+      <a href="index.php" style="text-decoration:none">home</a>
+      <a href="about.php" style="text-decoration:none">about</a>
+      <a href="package.php" style="text-decoration:none">package</a>
+      <a href="book.php" style="text-decoration:none">book</a>
+      <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
+      <div class="login-register">
+      </div>
    </nav>
-
    <div id="menu-btn" class="fas fa-bars"></div>
 
 </section>
@@ -102,7 +126,7 @@
                      <form method="post" class="book-form">
                      <div class="flex1">
                         <div class="inputBox">
-                        <span style="font-size: 23px;"><?php echo $i . "." ?></span>
+                        <span style="font-size: 23px;"><?php echo $i . " .)" ?></span>
                            <!-- <span>Student Name:</span> -->
                            <input type="text" placeholder="Student Name" name="s_name<?php.$i.?>">
                            <!-- <span>Student Age:</span> -->
