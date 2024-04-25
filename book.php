@@ -102,7 +102,7 @@
                      <form method="post" class="book-form">
                      <div class="flex1">
                         <div class="inputBox">
-                        <span style="font-size: 23px;"><?php echo $i . " .)" ?></span>
+                        <span style="font-size: 23px;"><?php echo $i . "." ?></span>
                            <!-- <span>Student Name:</span> -->
                            <input type="text" placeholder="Student Name" name="s_name<?php.$i.?>">
                            <!-- <span>Student Age:</span> -->
