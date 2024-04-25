@@ -1,6 +1,66 @@
 <?php
+    session_start();
+    // Database configuration
+    $servername = "localhost"; // Change this if your database is hosted elsewhere
+    $username = "root"; // Your MySQL username
+    $password = ""; // Your MySQL password
+    $database = "project"; // Your database name
 
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $database);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Registration
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
+        // Retrieve form data
+        $institute_name = $_POST['institute_name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $address = $_POST['address'];
+        $phone_number = $_POST['phone_number'];
+
+        // SQL query to insert data into registration table
+        $sql = "INSERT INTO registration (institute_name, email, password, address, phone_number)
+                VALUES ('$institute_name', '$email', '$password', '$address', '$phone_number')";
+
+        if ($conn->query($sql) === TRUE) {
+         header("Location: index.php");
+         exit;
+            
+        } else {
+         echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+
+    // Login
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
+        // Retrieve form data
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        // SQL query to validate user credentials
+        $sql = "SELECT * FROM registration WHERE email='$email' AND password='$password'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // If the user exists, set session variable and redirect to index1.php
+            $_SESSION['loggedin'] = true;
+            header("Location: index.php");
+            exit;
+        } else {
+            // If the user doesn't exist, display error message
+            echo "Invalid email or password.";
+        }
+    }
+
+    // Close connection
+    $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +158,7 @@
     <div class="modal fade" id="RegisterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form method="post" >
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <div class="modal-header">
                         <h5 class="modal-title d-flex align-items-center">
                         <i class="fa-solid fa-users-line fs-3 me-2"></i> User Registration <!-- Updated title -->
@@ -137,7 +197,7 @@
                            
                         </div>
                         <div class="text-center my-1">
-                            <button type="submit" class="btn btn-dark shadow-none">Register</button> 
+                            <button type="submit" name="register" class="btn btn-dark shadow-none">Register</button> 
                         </div>
                     </div>
 
@@ -151,7 +211,7 @@
      <div class="modal fade" id="LoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+               <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <div class="modal-header">
                         <h5 class="modal-title d-flex align-items-center">
                             <i class="fa-solid fa-circle-user fs-3 me-2"></i> User Login
@@ -161,14 +221,14 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Email address</label>
-                            <input type="email" class="form-control shadow-none" placeholder="Enter Your Email">
+                            <input type="email" name="email"class="form-control shadow-none" placeholder="Enter Your Email">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-control shadow-none" placeholder="Enter Your Password">
+                            <input type="password" name="password"class="form-control shadow-none" placeholder="Enter Your Password">
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <button type="submit" class="btn btn-dark shadow-none">Login</button>
+                        <div class="d-flex align-items-center justify-content-between mb-2" >
+                            <button type="submit" name="login" class="btn btn-dark shadow-none">Login</button>
                             <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a>
                         </div>
                     </div>
