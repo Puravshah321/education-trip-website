@@ -12,12 +12,12 @@ $itinerary = array(
             array(
                 'name' => 'City Tour',
                 'description' => 'Explore the Gandhi Ashram.',
-                'image' => 'Gandhi_ashram.jpg'
+                'image' => 'images/Gandhi_ashram.jpg'
             ),
             array(
                 'name' => 'Museum Visit',
                 'description' => 'Discover the local history and culture.',
-                'image' => 'calico.jpeg'
+                'image' => 'images/calico.jpeg'
             )
         )
     ),
@@ -26,12 +26,12 @@ $itinerary = array(
             array(
                 'name' => 'Museum Visit',
                 'description' => 'Embark on an Shreyas folk museum.',
-                'image' => 'shreyas folk.jpg'
+                'image' => 'images/shreyas folk.jpg'
             ),
             array(
                 'name' => 'Sardar vallabh bhai',
                 'description' => 'Enjoy a peaceful day at the Sardar vallabh bhai museum.',
-                'image' => 'sardar vallabh bhai.jpeg'
+                'image' => 'images/sardar vallabh bhai.jpeg'
             )
         )
     )
@@ -114,13 +114,12 @@ h1, h2, h3 {
 <body>
 <section class="header">
 
-   <a href="home.php" class="logo">edu trip.</a>
-
+<a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="home.php">home</a>
-      <a href="about.php">about</a>
-      <a href="package.php">package</a>
-      <a href="book.php">book</a>
+      <a href="index.php" style="text-decoration:none">home</a>
+      <a href="about.php" style="text-decoration:none">about</a>
+      <a href="package.php" style="text-decoration:none">package</a>
+      <a href="book.php" style="text-decoration:none">book</a>
    </nav>
 
    <div id="menu-btn" class="fas fa-bars"></div>
@@ -153,8 +152,8 @@ h1, h2, h3 {
                 </div>
             </div>
         <?php endforeach; ?>
-		<center><a href="book.php" class="btn">book now</a></center>
     </div>
+	
 	<section class="footer">
 
    <div class="box-container">
