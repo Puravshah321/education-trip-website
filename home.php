@@ -18,6 +18,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
         // Retrieve form data
         $institute_name = $_POST['institute_name'];
+        $_SESSION['institute_name'] = $institute_name;
         $email = $_POST['email'];
         $password = $_POST['password'];
         $address = $_POST['address'];
@@ -39,11 +40,12 @@
     // Login
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
         // Retrieve form data
-        $email = $_POST['email'];
+        $name = $_POST['name'];
         $password = $_POST['password'];
+        $_SESSION['institute_name'] = $name;
 
         // SQL query to validate user credentials
-        $sql = "SELECT * FROM registration WHERE email='$email' AND password='$password'";
+        $sql = "SELECT * FROM registration WHERE institute_name='$name' AND password='$password'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -220,8 +222,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Email address</label>
-                            <input type="email" name="email"class="form-control shadow-none" placeholder="Enter Your Email">
+                            <label class="form-label">username</label>
+                            <input type="text" name="name"class="form-control shadow-none" placeholder="Enter Username">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Password</label>
