@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +98,7 @@
     <div class="modal fade" id="RegisterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form>
+                <form method="post" >
                     <div class="modal-header">
                         <h5 class="modal-title d-flex align-items-center">
                         <i class="fa-solid fa-users-line fs-3 me-2"></i> User Registration <!-- Updated title -->
@@ -102,48 +106,35 @@
                         <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <span class="badge bg-light text-dark mb-3 text-wrap lh-base">
-                    Note:Your details must match with your ID(Aadhaar card, Passport , Driving License ,etc.)
-                    that will be required during check-in.
-                    </span>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6 ps-0 mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control shadow-none" placeholder="Enter Your Name">
+                                <label class="form-label">Institute Name</label>
+                                <input type="text" name="institute_name" class="form-control shadow-none" placeholder="Enter Institution Name">
                             </div>
                             <div class="col-md-6 p-0 mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control shadow-none" placeholder="Enter Your Email">
+                                <input type="email" name="email" class="form-control shadow-none" placeholder="Enter Your Email">
                             </div>
-                            <div class="col-md-6 ps-0 mb-3">
-                                <label class="form-label">Phone Number</label>
-                                <input type="number" class="form-control shadow-none" placeholder="Enter Your Phone Number">
-                            </div>
-                            <div class="col-md-6 p-0 mb-3">
-                                <label class="form-label">Picture</label>
-                                <input type="file" class="form-control shadow-none">
-                            </div>
-                            <div class="col-md-12 p-0 mb-3">
-                                <label class="form-label">Address</label>
-                                <textarea class="form-control shadow-none" placeholder="Enter Your Address" rows="1"></textarea>
-                            </div>
-                            <div class="col-md-6 ps-0 mb-3">
-                                <label class="form-label">Pincode</label>
-                                <input type="number" class="form-control shadow-none" placeholder="Enter Your Pincode">
-                            </div>
-                            <div class="col-md-6 p-0 mb-3">
-                                <label class="form-label">Date of birth</label>
-                                <input type="date" class="form-control shadow-none">
-                            </div>
+                            
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Password</label>
-                                <input type="password" class="form-control shadow-none" placeholder="Enter Your Password">
+                                <input type="password" name="password" class="form-control shadow-none" placeholder="Enter Your Password">
                             </div>
                             <div class="col-md-6 p-0 mb-3">
                                 <label class="form-label">Confirm Password</label>
                                 <input type="password" class="form-control shadow-none" placeholder="Confirm Your Password">
                             </div>
+                            <div class="col-md-6 p-0 mb-3">
+                                <label class="form-label">Address</label>
+                                <textarea class="form-control shadow-none" name="address" placeholder="Enter Your Address" rows="1"></textarea>
+                            </div>
+                            <div class="col-md-6 ps-0 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="number" name="phone_number"class="form-control shadow-none" placeholder="Enter Your Phone Number">
+                            </div>
+                            
+                           
                         </div>
                         <div class="text-center my-1">
                             <button type="submit" class="btn btn-dark shadow-none">Register</button> 
@@ -153,7 +144,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> 
     </div>
 
      <!-- Button Trigger Modal -->
