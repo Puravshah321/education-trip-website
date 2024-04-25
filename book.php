@@ -47,47 +47,85 @@
 
    <h1 class="heading-title">book your trip!</h1>
 
-   <form action="book_form.php" method="post" class="book-form">
+   <form method="post" class="book-form">
 
       <div class="flex">
          <div class="inputBox">
             <span>name :</span>
-            <input type="text" placeholder="enter your name" name="name">
+            <input type="text" placeholder="Enter your name" name="name">
          </div>
          <div class="inputBox">
             <span>email :</span>
-            <input type="email" placeholder="enter your email" name="email">
+            <input type="email" placeholder="Enter your email" name="email">
          </div>
          <div class="inputBox">
             <span>phone :</span>
-            <input type="number" placeholder="enter your number" name="phone">
+            <input type="number" placeholder="Enter Your Phone number" name="phone">
          </div>
          <div class="inputBox">
             <span>address :</span>
             <input type="text" placeholder="enter your address" name="address">
          </div>
          <div class="inputBox">
-            <span>where to :</span>
-            <input type="text" placeholder="place you want to visit" name="location">
+            <span>Package Name:</span>
+            <input type="text" placeholder="Package Name" name="location">
          </div>
          <div class="inputBox">
-            <span>how many :</span>
-            <input type="number" placeholder="number of guests" name="guests">
+            <span>Number of Students:</span>
+            <input type="number" placeholder="Enter number of Students" name="guests">
          </div>
          <div class="inputBox">
-            <span>arrivals :</span>
+            <span>Arrivals Dates:</span>
             <input type="date" name="arrivals">
          </div>
          <div class="inputBox">
-            <span>leaving :</span>
+            <span>Leaving Dates:</span>
             <input type="date" name="leaving">
          </div>
       </div>
 
-      <input type="submit" value="submit" class="btn" name="send">
-
+      <input type="submit" value="submit" class="btnsub" name="send">
    </form>
-
+   <br>
+   <br>
+   <!-- <h1 class="student-title">Student's Registration :</h1> -->
+         <?php
+            if(isset($_POST["send"]))
+            {
+               $number_of_students=$_POST["guests"];
+               if($number_of_students > 0 && $number_of_students < 40)
+               {
+                  echo "<h1 class='student-title'>Student Registration:</h1>";
+                  for($i = 1;$i <= $number_of_students;$i++)
+                  {
+         ?>
+                     <form method="post" class="book-form">
+                     <div class="flex1">
+                        <div class="inputBox">
+                        <span style="font-size: 23px;"><?php echo $i . " .)" ?></span>
+                           <!-- <span>Student Name:</span> -->
+                           <input type="text" placeholder="Student Name" name="s_name<?php.$i.?>">
+                           <!-- <span>Student Age:</span> -->
+                           <input type="number" placeholder="Student Age" name="s_number<?php.$i.?>">
+                           <!-- <span>Guardian's Phone Number:</span> -->
+                           <input type="text" placeholder="Student Phone Number" name="s_number<?php.$i.?>">
+                        </div>
+                     </div>
+                     
+         <?php
+                  }
+         ?>
+         <input type="submit" name="stu_submit" class="btnsub" value="Submit"/>
+         </form>
+         <?php
+               }
+               else
+               {
+                  echo "Enter Valid Data.";
+               }
+            }   
+         ?>
+   </div>
 </section>
 
 <!-- booking section ends -->
