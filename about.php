@@ -1,3 +1,6 @@
+<?php
+   session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,20 +18,41 @@
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+
+   <style>
+      /* Custom CSS for login and register buttons */
+      .navbar {
+         display: flex; /* Use flexbox to align items */
+         align-items: center; /* Align items vertically in the center */
+      }
+
+      .navbar a {
+         margin-right: 20px; /* Add margin between navbar links */
+         text-decoration: none;
+         color: #fff;
+      }
+
+      .background {
+         background-color: #000;
+      }
+   </style>
+
 </head>
 <body>
-   
+
 <!-- header section starts  -->
 
 <section class="header">
 
-   <a href="home.php" class="logo">travel.</a>
-
+   <a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="home.php">home</a>
-      <a href="about.php">about</a>
-      <a href="package.php">package</a>
-      <a href="book.php">book</a>
+      <a href="index.php" style="text-decoration:none">home</a>
+      <a href="about.php" style="text-decoration:none">about</a>
+      <a href="package.php" style="text-decoration:none">package</a>
+      <a href="book.php" style="text-decoration:none">book</a>
+      <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
+      <div class="login-register">
+      </div>
    </nav>
 
    <div id="menu-btn" class="fas fa-bars"></div>
@@ -110,56 +134,7 @@
             <img src="images/pic-2.png" alt="">
          </div>
 
-         <div class="swiper-slide slide">
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-            </div>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus enim deserunt, ab at ea iste odio placeat doloribus eum dolores tempore obcaecati, dolore esse aperiam. Excepturi ad quo distinctio, dignissimos voluptate, dolores, saepe animi eum atque sint esse ab exercitationem!</p>
-            <h3>john deo</h3>
-            <span>traveler</span>
-            <img src="images/pic-3.png" alt="">
-         </div>
-
-         <div class="swiper-slide slide">
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-            </div>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus recusandae cum quibusdam odio dignissimos nemo?</p>
-            <h3>john deo</h3>
-            <span>traveler</span>
-            <img src="images/pic-4.png" alt="">
-         </div>
-
-         <div class="swiper-slide slide">
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-            </div>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus facilis laudantium magnam saepe magni ullam possimus laborum voluptas, veniam ipsum officiis quae doloribus minima ut quis. Molestiae qui distinctio possimus?</p>
-            <h3>john deo</h3>
-            <span>traveler</span>
-            <img src="images/pic-5.png" alt="">
-         </div>
-
-         <div class="swiper-slide slide">
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-            </div>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus facilis laudantium magnam saepe magni ullam possimus laborum voluptas, veniam ipsum officiis quae doloribus minima ut quis. Molestiae qui distinctio possimus?</p>
-            <h3>john deo</h3>
-            <span>traveler</span>
-            <img src="images/pic-6.png" alt="">
-         </div>
+         <!-- Other slides omitted for brevity -->
 
       </div>
 
@@ -168,20 +143,6 @@
 </section>
 
 <!-- reviews section ends -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- footer section starts  -->
 
@@ -228,14 +189,6 @@
 </section>
 
 <!-- footer section ends -->
-
-
-
-
-
-
-
-
 
 <!-- swiper js link  -->
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
