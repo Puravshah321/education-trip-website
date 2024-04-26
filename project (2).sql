@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2024 at 01:13 PM
+-- Generation Time: Apr 26, 2024 at 11:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,31 @@ CREATE TABLE `activity` (
   `place` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Triggers `activity`
+--
+DELIMITER $$
+CREATE TRIGGER `activity_id` BEFORE INSERT ON `activity` FOR EACH ROW BEGIN
+  DECLARE last_id INT;
+    DECLARE new_id VARCHAR(15);
+    
+    -- Get the maximum institute_id from the registration table
+    SELECT MAX(CAST(SUBSTRING(faq_id, 2) AS UNSIGNED)) INTO last_id FROM activity;
+    
+    -- If no records are present, initialize last_id to 0
+    IF last_id IS NULL THEN
+        SET last_id = 0;
+    END IF;
+    
+    -- Generate the new institute_id
+    SET new_id = CONCAT("A", LPAD(last_id + 1, 5, "0"));
+    
+    -- Set the new institute_id for the current insertion
+    SET NEW.activity_id = new_id;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -59,6 +84,48 @@ CREATE TABLE `faq` (
   `faq_question` varchar(100) NOT NULL,
   `faq_answer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`faq_id`, `faq_question`, `faq_answer`) VALUES
+('F00001', 'What types of educational trips do you offer?', 'We offer a wide range of educational trips tailored to various interests and age groups. These inclu'),
+('F00002', 'Who can participate in your educational trips?', 'Our trips are designed for students of all ages, from elementary school to university level. We also'),
+('F00003', 'What destinations do you offer for educational trips?', 'We organize trips to various destinations in India, including historic cities, natural wonders, cult'),
+('F00004', 'Can you accommodate special dietary requirements or accessibility needs?', 'Yes, we strive to accommodate all dietary preferences and accessibility needs. Please inform us of a'),
+('F00005', 'Are there safety measures in place during the trips?', 'Safety is our top priority. We work with experienced guides and follow strict safety protocols to en'),
+('F00006', 'What should students pack for the trip?', 'We provide a packing list detailing essential items to bring on the trip, such as clothing appropria'),
+('F00007', 'Are there opportunities for students to interact with locals during the trip?', 'Yes, we incorporate opportunities for cultural exchange and interaction with locals into our itinera'),
+('F00008', 'How are the educational aspects of the trip integrated into the itinerary?', 'Our educational content is seamlessly woven into the itinerary through guided tours, workshops, gues'),
+('F00009', 'What measures do you take to minimize the environmental impact of your trips?', 'We are committed to sustainable travel practices and minimizing our environmental footprint. This in'),
+('F00010', 'What is the average group size for your educational trips?', 'Group sizes vary depending on the destination and program, but we aim to keep our groups small to fa'),
+('F00011', 'Can you provide references or testimonials from previous participants?', 'Certainly! We have a collection of testimonials and references from previous participants who have s');
+
+--
+-- Triggers `faq`
+--
+DELIMITER $$
+CREATE TRIGGER `faq_id` BEFORE INSERT ON `faq` FOR EACH ROW BEGIN
+  DECLARE last_id INT;
+    DECLARE new_id VARCHAR(15);
+    
+    -- Get the maximum institute_id from the registration table
+    SELECT MAX(CAST(SUBSTRING(faq_id, 2) AS UNSIGNED)) INTO last_id FROM faq;
+    
+    -- If no records are present, initialize last_id to 0
+    IF last_id IS NULL THEN
+        SET last_id = 0;
+    END IF;
+    
+    -- Generate the new institute_id
+    SET new_id = CONCAT("F", LPAD(last_id + 1, 5, "0"));
+    
+    -- Set the new institute_id for the current insertion
+    SET NEW.faq_id = new_id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -149,7 +216,10 @@ CREATE TABLE `registration` (
 
 INSERT INTO `registration` (`institute_id`, `institute_name`, `email`, `password`, `address`, `phone_number`) VALUES
 ('I00001', 'abc', 'abc@gmail.com', 'abc', 'abc', '1234567890'),
-('I00002', 'nirman ', 'nirman@gmail.com', 'nirmna', 'vastrapur', '8019220948');
+('I00002', 'nirman ', 'nirman@gmail.com', 'nirmna', 'vastrapur', '8019220948'),
+('I00003', 'a', 'a@gmail.com', 'a', 'a', '1234567890'),
+('I00004', 'purav', 'puravshah73@gmail.com', 'purav73', 'paldi', '8160662390'),
+('I00005', 'nigam', 'nnigamsanghvi@gmail.com', 'nigam', 'nikol', '9382649034');
 
 --
 -- Triggers `registration`
