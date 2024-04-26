@@ -14,7 +14,7 @@ if (!$conn) {
 }
 
 // Fetch data from the database
-$sql = "SELECT * FROM admin_login";
+$sql = "SELECT * FROM registration";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -27,7 +27,7 @@ $result = mysqli_query($conn, $sql);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #f6f7f9, #d6d6d6); /* Gradient background color */
+            background: linear-gradient(135deg, #ffffff, #e0e0e0); /* Brighter gradient background color */
         }
 
         h1 {
@@ -102,21 +102,27 @@ $result = mysqli_query($conn, $sql);
 <h1>User Database</h1>
 
 <div class="go-back">
-    <a href="admindashboard.php;">&laquo; Go Back</a>
+    <a href="admindashboard.php">&laquo; Go Back</a>
 </div>
 
 <table>
     <thead>
         <tr>
-            <th>Admin ID</th>
-            <th>Admin Name</th>
+            <th>Institute ID</th>
+            <th>Institute Name</th>
+            <th>Institute Email</th>
+            <th>Institute Address</th>
+            <th>Phone Number</th>
         </tr>
     </thead>
     <tbody>
         <?php while ($row = mysqli_fetch_assoc($result)) : ?>
             <tr>
-                <td><?php echo $row['admin_id']; ?></td>
-                <td><?php echo $row['admin_name']; ?></td>
+                <td><?php echo $row['institute_id']; ?></td>
+                <td><?php echo $row['institute_name']; ?></td>
+                <td><?php echo $row['institute_email']; ?></td>
+                <td><?php echo $row['institute_address']; ?></td>
+                <td><?php echo $row['institute_phone_number']; ?></td>
             </tr>
         <?php endwhile; ?>
     </tbody>
