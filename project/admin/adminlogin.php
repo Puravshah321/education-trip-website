@@ -1,18 +1,19 @@
 <?php
-      session_start();
-      // Database configuration
-      $servername = "localhost"; // Change this if your database is hosted elsewhere
-      $username = "root"; // Your MySQL username
-      $password = ""; // Your MySQL password
-      $database = "project"; // Your database name
-  
-      // Create connection
-      $conn = new mysqli($servername, $username, $password, $database);
+    session_start();
+    // Database configuration
+    $servername = "localhost"; // Change this if your database is hosted elsewhere
+    $username = "root"; // Your MySQL username
+    $password = ""; // Your MySQL password
+    $database = "project"; // Your database name
 
-      if ($conn->connect_error) {
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $database);
+
+    if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 ?>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Admin Login</title>
@@ -40,7 +41,7 @@
             max-width: 100%;
             text-align: center;
             transition: transform 0.3s ease;
-            position: relative; /* Added */
+            position: relative;
         }
 
         .login-form:hover {
@@ -55,8 +56,8 @@
         .input-field {
             position: relative;
             margin-bottom: 20px;
-            display: flex; /* Added */
-            align-items: center; /* Added */
+            display: flex;
+            align-items: center;
         }
 
         .input-field input {
@@ -66,7 +67,7 @@
             border-radius: 25px;
             outline: none;
             transition: border-color 0.3s ease;
-            padding-left: 40px; /* Added */
+            padding-left: 40px;
         }
 
         .input-field input:focus {
@@ -129,11 +130,11 @@
     <form method="POST">
         <div class="input-field">
             <i class="bi bi-person-circle" style="margin-right: 10px;"></i>
-            <input type="text" placeholder="Admin Username" name="AdminName">
+            <input type="text" placeholder="Enter Admin Username" name="AdminName">
         </div>
         <div class="input-field">
             <i class="bi bi-shield-lock" style="margin-right: 10px;"></i>
-            <input type="password" placeholder="Password" name="AdminPassword">
+            <input type="password" placeholder="Enter Password" name="AdminPassword">
         </div>
         
         <button type="submit" name="Signin">Sign In</button>
