@@ -106,6 +106,10 @@
             <span>Leaving Dates:</span>
             <input type="date" name="leaving">
          </div>
+         <div class="inputBox">
+         <center><span>-- Upload Students Consent here --</span>
+            <input type="file" name="s_consent"></center>
+         </div>
       </div>
 
       <input type="submit" value="submit" class="btnsub" name="send">
@@ -126,7 +130,7 @@
                      <form method="post" class="book-form">
                      <div class="flex1">
                         <div class="inputBox">
-                        <span style="font-size: 23px;"><?php echo $i . " .)" ?></span>
+                        <span style="font-size: 23px;"><?php echo $i . "." ?></span>
                            <!-- <span>Student Name:</span> -->
                            <input type="text" placeholder="Student Name" name="s_name<?php.$i.?>">
                            <!-- <span>Student Age:</span> -->
@@ -215,14 +219,6 @@
 </section>
 
 <!-- footer section ends -->
-
-
-
-
-
-
-
-
 
 <!-- swiper js link  -->
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
