@@ -45,12 +45,13 @@
 
 <section class="header">
 
-<a href="home.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
+<a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="home.php" style="text-decoration:none">home</a>
+      <a href="index.php" style="text-decoration:none">home</a>
       <a href="about.php" style="text-decoration:none">about</a>
       <a href="package.php" style="text-decoration:none">package</a>
       <a href="book.php" style="text-decoration:none">book</a>
+      <a href="faq.php" style="text-decoration:none">FAQ</a>
       <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
       <div class="login-register">
       </div>
@@ -106,8 +107,6 @@
             <span>Leaving Dates:</span>
             <input type="date" name="leaving">
          </div>
-         <center><span>-- Upload Students Consent here --</span>
-            <input type="file" name="s_consent"></center>
       </div>
 
       <input type="submit" value="submit" class="btnsub" name="send">
@@ -212,7 +211,7 @@
 
    </div>
 
-
+   <div class="credit"> created by <span>mr. web designer</span> | all rights reserved! </div>
 
 </section>
 

@@ -1,3 +1,6 @@
+<?php
+   session_start();
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,12 +15,12 @@ $itinerary = array(
             array(
                 'name' => 'City Tour',
                 'description' => 'Explore the Gandhi Ashram.',
-                'image' => 'images/Gandhi_ashram.jpg'
+                'image' => 'Gandhi_ashram.jpg'
             ),
             array(
                 'name' => 'Museum Visit',
                 'description' => 'Discover the local history and culture.',
-                'image' => 'images/calico.jpeg'
+                'image' => 'calico.jpeg'
             )
         )
     ),
@@ -26,12 +29,12 @@ $itinerary = array(
             array(
                 'name' => 'Museum Visit',
                 'description' => 'Embark on an Shreyas folk museum.',
-                'image' => 'images/shreyas folk.jpg'
+                'image' => 'shreyas folk.jpg'
             ),
             array(
                 'name' => 'Sardar vallabh bhai',
                 'description' => 'Enjoy a peaceful day at the Sardar vallabh bhai museum.',
-                'image' => 'images/sardar vallabh bhai.jpeg'
+                'image' => 'sardar vallabh bhai.jpeg'
             )
         )
     )
@@ -112,16 +115,20 @@ h1, h2, h3 {
 	
 </head>	
 <body>
+
 <section class="header">
 
-<a href="home.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
+<a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="home.php" style="text-decoration:none">home</a>
+      <a href="index.php" style="text-decoration:none">home</a>
       <a href="about.php" style="text-decoration:none">about</a>
       <a href="package.php" style="text-decoration:none">package</a>
       <a href="book.php" style="text-decoration:none">book</a>
+      <a href="faq.php" style="text-decoration:none">FAQ</a>
+      <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
+      <div class="login-register">
+      </div>
    </nav>
-
    <div id="menu-btn" class="fas fa-bars"></div>
 
 </section>
@@ -152,11 +159,11 @@ h1, h2, h3 {
                 </div>
             </div>
         <?php endforeach; ?>
+		<center><a href="book.php" class="btn">book now</a></center>
     </div>
-	
-	<section class="footer">
 
-   <div class="box-container">
+	<section class="footer">
+    <div class="box-container">
 
       <div class="box">
          <h3>quick links</h3>
@@ -192,7 +199,7 @@ h1, h2, h3 {
 
    </div>
 
-   
+   <div class="credit"> created by <span>mr. web designer</span> | all rights reserved! </div>
 
 </section>
 

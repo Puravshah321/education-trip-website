@@ -1,66 +1,14 @@
 <?php
-    session_start();
-    // Database configuration
-    $servername = "localhost"; // Change this if your database is hosted elsewhere
-    $username = "root"; // Your MySQL username
-    $password = ""; // Your MySQL password
-    $database = "project"; // Your database name
+   session_start();
+   // Database configuration
+   $servername = "localhost"; // Change this if your database is hosted elsewhere
+   $username = "root"; // Your MySQL username
+   $password = ""; // Your MySQL password
+   $database = "project"; // Your database name
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Registration
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
-        // Retrieve form data
-        $institute_name = $_POST['institute_name'];
-        $_SESSION['institute_name'] = $institute_name;
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $address = $_POST['address'];
-        $phone_number = $_POST['phone_number'];
-
-        // SQL query to insert data into registration table
-        $sql = "INSERT INTO registration (institute_name, email, password, address, phone_number)
-                VALUES ('$institute_name', '$email', '$password', '$address', '$phone_number')";
-
-        if ($conn->query($sql) === TRUE) {
-         header("Location: home.php");
-         exit;
-            
-        } else {
-         echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
-
-    // Login
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
-        // Retrieve form data
-        $name = $_POST['name'];
-        $password = $_POST['password'];
-        $_SESSION['institute_name'] = $name;
-
-        // SQL query to validate user credentials
-        $sql = "SELECT * FROM registration WHERE institute_name='$name' AND password='$password'";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            // If the user exists, set session variable and redirect to index1.php
-            $_SESSION['loggedin'] = true;
-            header("Location: home.php");
-            exit;
-        } else {
-            // If the user doesn't exist, display error message
-            echo "Invalid email or password.";
-        }
-    }
-
-    // Close connection
-    $conn->close();
+   // Create connection
+   $conn = new mysqli($servername, $username, $password, $database);   
+   $conn->close();
 ?>
 
 
@@ -74,7 +22,7 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
-   <title>home</title>
+   <title>index</title>
 
    <!-- swiper css link  -->
    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
@@ -102,25 +50,6 @@
    color: #fff;
 }
 
-.navbar .login-register {
-   margin-left: auto;
-}
-
-.navbar .login-register button {
-   color: white;
-   background-color: black;
-   border: none;
-   cursor: pointer;
-   font-size: 16px;
-   margin-left: 20px;
-   padding: 10px 20px;
-   transition: background-color 0.3s ease;
-}
-
-.navbar .login-register button:hover {
-   background-color: #279e8c;
-}
-
 .background {
    background-color: #000;
    
@@ -136,23 +65,19 @@
 <section class="header">
    <a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="#" onclick="openRegisterModal()" style="text-decoration:none">home</a>
-      <a href="#" onclick="openRegisterModal()"style="text-decoration:none">about</a>
-      <a href="#" onclick="openRegisterModal()"style="text-decoration:none">package</a>
-      <a href="#"onclick="openRegisterModal()" style="text-decoration:none">book</a>
+      <a href="index.php" style="text-decoration:none">home</a>
+      <a href="about.php" style="text-decoration:none">about</a>
+      <a href="package.php" style="text-decoration:none">package</a>
+      <a href="book.php" style="text-decoration:none">book</a>
+      <a href="faq.php" style="text-decoration:none">FAQ</a>
+      <!-- <a href="#" style="text-decoration:none">Feedback</a> -->
+      <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
       <div class="login-register">
-      <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2" data-bs-toggle="modal" data-bs-target="#LoginModal">
-                Login
-                </button>
-                <button type="button" class="btn btn-outline-dark shadow-none" data-bs-toggle="modal" data-bs-target="#RegisterModal">
-                Register
-                </button>
       </div>
    </nav>
    
 
-   <div id="menu-btn" class="fas fa-bars"></div>
-
+   
 </section>
 
 <!-- header section ends -->
@@ -160,7 +85,7 @@
     <div class="modal fade" id="RegisterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <form method="post" >
                     <div class="modal-header">
                         <h5 class="modal-title d-flex align-items-center">
                         <i class="fa-solid fa-users-line fs-3 me-2"></i> User Registration <!-- Updated title -->
@@ -199,7 +124,7 @@
                            
                         </div>
                         <div class="text-center my-1">
-                            <button type="submit" name="register" class="btn btn-dark shadow-none">Register</button> 
+                            <button type="submit" class="btn btn-dark shadow-none">Register</button> 
                         </div>
                     </div>
 
@@ -213,7 +138,7 @@
      <div class="modal fade" id="LoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-               <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <form>
                     <div class="modal-header">
                         <h5 class="modal-title d-flex align-items-center">
                             <i class="fa-solid fa-circle-user fs-3 me-2"></i> User Login
@@ -222,15 +147,15 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">username</label>
-                            <input type="text" name="name"class="form-control shadow-none" placeholder="Enter Username">
+                            <label class="form-label">Email address</label>
+                            <input type="email" class="form-control shadow-none" placeholder="Enter Your Email">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Password</label>
-                            <input type="password" name="password"class="form-control shadow-none" placeholder="Enter Your Password">
+                            <input type="password" class="form-control shadow-none" placeholder="Enter Your Password">
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mb-2" >
-                            <button type="submit" name="login" class="btn btn-dark shadow-none">Login</button>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <button type="submit" class="btn btn-dark shadow-none">Login</button>
                             <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a>
                         </div>
                     </div>
@@ -413,9 +338,9 @@
       <div class="box">
          <h3>quick links</h3>
          <a href="home.php"> <i class="fas fa-angle-right"></i> home</a>
-         <a href="#" onclick="openRegisterModal()" > <i class="fas fa-angle-right"></i> about</a>
-         <a href="#"onclick="openRegisterModal()" > <i class="fas fa-angle-right"></i> package</a>
-         <a href="#" onclick="openRegisterModal()" > <i class="fas fa-angle-right"></i> book</a>
+         <a href="about.php"> <i class="fas fa-angle-right"></i> about</a>
+         <a href="package.php"> <i class="fas fa-angle-right"></i> package</a>
+         <a href="book.php"> <i class="fas fa-angle-right"></i> book</a>
       </div>
 
       <div class="box">
@@ -444,6 +369,8 @@
 
    </div>
 
+   <div class="credit"> created by <span>mr. web designer</span> | all rights reserved! </div>
+
 </section>
 
 <!-- footer section ends -->
@@ -466,14 +393,6 @@ document.addEventListener("DOMContentLoaded", function() {
         },
     });
 });
-
-function openRegisterModal() {
-        // Select the Register Modal element
-        var registerModal = document.getElementById('RegisterModal');
-        // Open the modal
-        var modal = new bootstrap.Modal(registerModal);
-        modal.show();
-    }
 </script>
 
 <!-- custom js file link  -->

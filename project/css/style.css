@@ -433,6 +433,53 @@ section{
    margin-top: 1rem;
 }
 
+
+
+/* FOR PACKAGES */
+
+
+.reviews1{
+   background: var(--light-bg);
+}
+
+.reviews1 .slide{
+   padding:2rem;
+   border:var(--border);
+   background: var(--white);
+   text-align: center;
+   box-shadow: var(--box-shadow);
+   user-select: none;
+}
+
+.reviews1 .slide p{
+   font-size: 5rem;
+   color:var(--black);
+   line-height: 2;
+   padding:1rem 0;
+}
+
+.reviews1 .slide h3{
+   font-size: 50rem;
+   color:var(--black);
+   text-align: center;
+}
+
+.reviews1 .slide span{
+   font-size: 15rem;
+   color:var(--main-color);
+   display: block;
+}
+
+.reviews1 .slide img{
+   height: 7rem;
+   width: 7rem;
+   border-radius: 20%;
+   margin-top: 1rem;
+}
+
+
+
+/* ignore */
 .packages .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
@@ -460,7 +507,7 @@ section{
 }
 
 .packages .box-container .box .image{
-   height: 25rem;
+   height: 350px;
    overflow: hidden;
 }
 
@@ -719,4 +766,12 @@ section{
 .student-title{
    font-size: 35px;
    text-align: center;
+}
+
+/* FAQ heading*/
+.heading h3{
+   font-size: 5rem;
+   text-transform: uppercase;
+   color:var(--white);
+   text-shadow: var(--text-shadow);
 }

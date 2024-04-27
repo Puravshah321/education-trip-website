@@ -33,6 +33,46 @@
       .background {
          background-color: #000;
       }
+
+      .pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination-link {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
+    color: #333;
+    border: 1px solid #333;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-link:hover,
+.pagination-link.active {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Pagination animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pagination-link:hover,
+.pagination-link.active {
+    animation: pulse 0.5s ease-in-out infinite alternate;
+}
    </style>
 
 </head>
@@ -42,12 +82,13 @@
 
 <section class="header">
 
-   <a href="home.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
+   <a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="home.php" style="text-decoration:none">home</a>
+      <a href="index.php" style="text-decoration:none">home</a>
       <a href="about.php" style="text-decoration:none">about</a>
       <a href="package.php" style="text-decoration:none">package</a>
       <a href="book.php" style="text-decoration:none">book</a>
+      <a href="faq.php" style="text-decoration:none">FAQ</a>
       <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
       <div class="login-register">
       </div>
@@ -199,246 +240,104 @@
 <!-- packages section starts -->
 
 <section class="packages">
-
    <h1 class="heading-title">top destinations</h1>
-
    <div class="box-container">
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-1.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-               <form>
-               <a href="itinerary.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+   <?php
+// Establish a connection to the database
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$dbname = "project"; // Change this to your database name
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-2.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-3.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-4.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+// Pagination
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$limit = 6; // Number of reviews per page
+$start = ($page - 1) * $limit;
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-5.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+// Fetch reviews from the database with pagination
+$sql = "SELECT * FROM package LIMIT $start, $limit";
+$result = $conn->query($sql);
+// SQL query to fetch package records from the database
+// $sql = "SELECT * FROM package";
+// $result = $conn->query($sql);
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-6.jpg" alt="">
+// Check if there are records in the result set
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        // Output HTML for each package
+?>
+        <div class="box">
+        <div class="image">
+            <img src="<?php echo $row['image_id']; ?>" alt="" style="width: 250; height: 500px;">
          </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-7.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+            <div class="content">
+                <h3><?php echo $row['package_name']; ?></h3>
+                <p><?php echo "Price: Rs." .$row['package_price']; ?></p>
+                <form>
+                    <a href="itinerary.php?package_id=<?php //echo $row['id']; ?>" class="btn">More Details</a>
+                    <select class="dropdown">
+                        <option value="" disabled selected>View Dates</option>
+                        <option value="oct">October 21-23</option>
+                        <option value="nov">November 4-6</option>
+                        <option value="dec">December 12-14</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+<?php
+    }
+} else {
+    echo "0 results"; // Output this if no records found
+}
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-8.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+?>
+</div>
+   <!-- Pagination links -->
+   <div class="pagination">
+       <?php
+       $sql_total = "SELECT COUNT(*) AS total FROM feedback";
+       $result_total = $conn->query($sql_total);
+       $row_total = $result_total->fetch_assoc();
+       $total_pages = ceil($row_total["total"] / $limit);
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-9.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+       // Previous page link
+       if ($page > 1) {
+           echo '<a href="?page='.($page - 1).'" class="pagination-link">&laquo; Previous</a>';
+       }
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-10.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+       // Page numbers
+       for ($i = 1; $i <= $total_pages; $i++) {
+           echo '<a href="?page='.$i.'" class="pagination-link';
+           if ($i == $page) {
+               echo ' active';
+           }
+           echo '">'.$i.'</a>';
+       }
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-11.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
+       // Next page link
+       if ($page < $total_pages) {
+           echo '<a href="?page='.($page + 1).'" class="pagination-link">Next &raquo;</a>';
+       }
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-12.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, perspiciatis!</p>
-            <form>
-               <a href="book.php" class="btn">book now</a>
-               <select class="dropdown">
-                  <option value="" disabled selected>View Dates</option>
-                  <option value="oct">October 21-23</option>
-                  <option value="nov">November 4-6</option>
-                  <option value="dec">December 12-14</option>
-               </select>
-               </form>
-         </div>
-      </div>
-
+       
+      // Close connection
+      $conn->close();
+       ?>
+      
    </div>
-
-   <div class="load-more"><span class="btn">load more</span></div>
-
 </section>
-
-<!-- packages section ends -->
+<!-- Packages End -->
 <!-- footer section starts -->
 
 <section class="footer">

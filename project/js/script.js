@@ -123,3 +123,40 @@ form.addEventListener('submit', (e) => {
   console.log(`Selected date: ${selectedDate}`);
   // Add code here to handle the selected date
 });
+
+
+
+
+
+
+
+
+
+
+
+
+//FOR PACKAGE DETAILS PAGE :
+// function showContent(contentId) {
+//    const title = document.querySelector('.title');
+//    const content = document.querySelector('.content');
+ 
+//    if (contentId === 'setting') {
+//      title.textContent = 'Setting The Stage';
+//      content.textContent = `Participants plan and execute their own trekking expedition. The trekking expedition, spread over 4 days, requires them to reach a high point, usually a summit, and return down to the base camp safely. They do this in teams composed of 8 to 10 members, usually of diverse skills and abilities. Designing the trek experience nudges participants out of their comfort zones. It creates an environment for learning. Each day of the trek has a progressive change in terrain, altitude, temperature, and trekking hours. This keeps participants constantly on the learning edge.`;
+//    } else if (contentId === 'itinerary') {
+//      title.textContent = 'itinerary Details';
+//      content.textContent = `itinerary details go here.`;
+//    }  else if (contentId === 'activities') {
+//      title.textContent = 'Activities Details';
+//      content.textContent = `Activities details go here.`;
+//    } else if (contentId === 'images') {
+//      title.textContent = 'Images Title';
+//      content.textContent = `Images details go here.`;
+//    }
+//  }
+ 
+//  document.querySelector('.button-group button').addEventListener('click', () => {
+//    const buttons = document.querySelectorAll('.button-group button');
+//    buttons.forEach(button => button.classList.remove('active'));
+//    event.target.classList.add('active');
+//  });
