@@ -295,122 +295,106 @@
 
 
 
-<!-- packages section starts -->
-
 <section id="top-destinations" class="packages">
-   <h1 class="heading-title">top destinations</h1>
-   <div class="box-container">
-<?php
-                // Establish a connection to the database
-                $servername = "localhost"; // Change this to your database server name
-                $username = "root"; // Change this to your database username
-                $password = ""; // Change this to your database password
-                $dbname = "project"; // Change this to your database name
+    <h1 class="heading-title">top destinations</h1>
+    <div class="box-container">
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "project";
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = 6;
+        $start = ($page - 1) * $limit;
 
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+        $whereClause = '';
 
-                // Pagination
-                $page = isset($_GET['page']) ? $_GET['page'] : 1;
-                $limit = 6; // Number of reviews per page
-                $start = ($page - 1) * $limit;
+        if (isset($_GET['package_type']) && $_GET['package_type'] !== 'all') {
+            $whereClause .= " package_type = '" . $_GET['package_type'] . "' AND ";
+        }
+        if (isset($_GET['filter_state']) && $_GET['filter_state'] !== 'all') {
+            $whereClause .= " filter_state = '" . $_GET['filter_state'] . "' AND ";
+        }
+        if (isset($_GET['filter_grade']) && $_GET['filter_grade'] !== 'all') {
+            $whereClause .= " filter_grade = '" . $_GET['filter_grade'] . "' AND ";
+        }
+        if (isset($_GET['filter_month']) && $_GET['filter_month'] !== 'all') {
+            $filterMonth = $_GET['filter_month'];
+            $whereClause .= " (MONTH(package_date1) = '$filterMonth' OR MONTH(package_date2) = '$filterMonth' OR MONTH(package_date3) = '$filterMonth') AND ";
+        }
+        if (isset($_GET['filter_category']) && $_GET['filter_category'] !== 'all') {
+            $whereClause .= " filter_category = '" . $_GET['filter_category'] . "' AND ";
+        }
+        if (!empty($whereClause)) {
+            $whereClause = 'WHERE ' . rtrim($whereClause, ' AND ');
+        }
 
-                // Build the WHERE clause based on the filters
-                $whereClause = '';
+        $totalSql = "SELECT COUNT(*) FROM package $whereClause";
+        $totalResult = $conn->query($totalSql);
+        $totalRecords = $totalResult->fetch_row()[0];
+        $totalPages = ceil($totalRecords / $limit);
 
-                // Trip Class filter
-                if (isset($_GET['package_type']) && $_GET['package_type'] !== 'all') {
-                    $whereClause .= " package_type = '" . $_GET['package_type'] . "' AND ";
-                }
+        $sql = "SELECT * FROM package $whereClause LIMIT $start, $limit";
+        $result = $conn->query($sql);
 
-                // State filter
-                if (isset($_GET['filter_state']) && $_GET['filter_state'] !== 'all') {
-                    $whereClause .= " filter_state = '" . $_GET['filter_state'] . "' AND ";
-                }
+        if ($result !== null && $result instanceof mysqli_result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $imagePath = $row['image_id'];
+                $imageSize = getimagesize($imagePath);
+                $imageWidth = $imageSize[0];
+                $imageHeight = $imageSize[1];
 
-                // Grade filter
-                if (isset($_GET['filter_grade']) && $_GET['filter_grade'] !== 'all') {
-                    $whereClause .= " filter_grade = '" . $_GET['filter_grade'] . "' AND ";
-                }
+                echo '<div class="box">';
+                echo '<div class="image">';
+                echo '<img src="' . $imagePath . '" alt="" style="width: ' . $imageWidth . 'px; height: ' . $imageHeight . 'px;">';
+                echo '</div>';
+                echo '<div class="content">';
+                echo '<h3>' . $row['package_name'] . '</h3>';
+                echo '<p>Price: Rs.' . $row['package_price'] . '</p>';
+                echo '<form>';
+                echo '<a href="itinerary.php?package_id=' . $row['package_id'] . '" class="btn">More Details</a>';
+                echo '<select class="dropdown">';
+                echo '<option value="" disabled selected>' . $row['package_date1'] . '</option>';
+                echo '<option value="" disabled selected>' . $row['package_date2'] . '</option>';
+                echo '<option value="" disabled selected>' . $row['package_date3'] . '</option>';
+                echo '<option value="" disabled selected>View Dates</option>';
+                echo '</select>';
+                echo '</form>';
+                echo '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "<div style='text-align: center;'>";
+            echo "<h2>";
+            echo "Sorry, No packages found!";
+            echo "</h2>";
+            echo "</div>";
+        }
 
-                // Dates filter
-                if (isset($_GET['filter_month']) && $_GET['filter_month'] !== 'all') {
-                    // Assuming your database has a table named 'your_table_name' and three date columns named 'date1', 'date2', and 'date3'
-                    $filterMonth = $_GET['filter_month'];
-                    
-                    // Assuming $whereClause is already initialized
-                    $whereClause .= " (MONTH(package_date1) = '$filterMonth' OR MONTH(package_date2) = '$filterMonth' OR MONTH(package_date3) = '$filterMonth') AND ";
-                }
-                
-
-                // Categories filter
-                if (isset($_GET['filter_category']) && $_GET['filter_category'] !== 'all') {
-                    // Assuming your database has a column named 'categories'
-                    $whereClause .= " filter_category = '" . $_GET['filter_category'] . "' AND ";
-                }
-
-                // Remove the trailing "AND" from the WHERE clause
-                if (!empty($whereClause)) {
-                    $whereClause = 'WHERE ' . rtrim($whereClause, ' AND ');
-                }
-
-                // Construct the SQL query with the WHERE clause
-                $sql = "SELECT * FROM package $whereClause LIMIT $start, $limit";
-
-                $result = $conn->query($sql);
-
-                if ($result !== null && $result instanceof mysqli_result && $result->num_rows > 0) {
-                    // Output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        // Get image dimensions
-                        $imagePath = $row['image_id']; // Assuming image_id contains the path to the image
-                        $imageSize = getimagesize($imagePath);
-                        $imageWidth = $imageSize[0];
-                        $imageHeight = $imageSize[1];
-                
-                        // Output HTML for each package
-                        echo '<div class="box">';
-                        echo '<div class="image">';
-                        echo '<img src="' . $imagePath . '" alt="" style="width: ' . $imageWidth . 'px; height: ' . $imageHeight . 'px;">';
-                        echo '</div>';
-                        echo '<div class="content">';
-                        echo '<h3>' . $row['package_name'] . '</h3>';
-                        echo '<p>Price: Rs.' . $row['package_price'] . '</p>';
-                        echo '<form>';
-                        echo '<a href="itinerary.php?package_id=' . $row['package_id'] . '" class="btn">More Details</a>';
-                        echo '<select class="dropdown">';
-                        echo '<option value="" disabled selected>' . $row['package_date1'] . '</option>';
-                        echo '<option value="" disabled selected>' . $row['package_date2'] . '</option>';
-                        echo '<option value="" disabled selected>' . $row['package_date3'] . '</option>';
-                        echo '<option value="" disabled selected>View Dates</option>';
-                        // echo '<option value="' . $row['package_date1'] . '">' . $row['package_date1'] . '</option>';
-                        // echo '<option value="' . $row['package_date2'] . '">' . $row['package_date2'] . '</option>';
-                        // echo '<option value="' . $row['package_date3'] . '">' . $row['package_date3'] . '</option>';
-                        echo '</select>';
-                        echo '</form>';
-                        echo '</div>';
-                        echo '</div>';
-                    }                
-                } else {
-                    echo "<div style='text-align: center;'>";
-                    echo "<h2>";
-                    echo "Sorry, No packages found!"; // Output this if no records found or if $result is null
-                    echo "</h2>";
-                    echo "</div>";                    
-                }
-
-                // Close connection
-                $conn->close();
-    ?>
-      
-   </div>
+        $conn->close();
+        ?>
+    </div>
 </section>
-<!-- Packages End -->
+
+<div class="pagination">
+    <?php if ($page > 1): ?>
+        <a href="?page=<?= $page - 1 ?>" class="pagination-link">Previous</a>
+    <?php endif; ?>
+
+    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <a href="?page=<?= $i ?>" class="pagination-link <?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+    <?php endfor; ?>
+
+    <?php if ($page < $totalPages): ?>
+        <a href="?page=<?= $page + 1 ?>" class="pagination-link">Next</a>
+    <?php endif; ?>
+</div>
+<br></br>
 
 
 <!-- footer section starts -->
