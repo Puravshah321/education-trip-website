@@ -27,7 +27,7 @@
 		
         h1, h2 {
             color: #333;
-			font-size:30px;
+			font-size:35px;
 			font-family:vendana;
         }
 		h3{
@@ -72,10 +72,19 @@
 			$result = mysqli_query($conn,$query);
 			$i=1;
 			while($rows=mysqli_fetch_assoc($result)){
+			$h_id = $rows['hotel_id'];
 			echo "<center><p><b>","Day ",$i++," : ",$rows["description"],"</b><br>";
-			echo ":	  ",$rows["location"],"<br>";
-			echo ": Distance  ",$rows["distance"],"Kms. From Previous Stop.","<br>","<br></p></center>";
+			echo "~	  ",$rows["location"],"<br>";
+			echo " Distance  ",$rows["distance"],"Kms.","<br>","<br></p></center>";
 			}
+			
+			$query = "SELECT * FROM hotel where hotel_id = '$h_id'";
+			$result = mysqli_query($conn,$query);
+			$rows=mysqli_fetch_assoc($result);
+			echo "<h1><br>~ Stay ~</br></h1>";
+			echo "<h3><b>Hotel  -  ",$rows['hotel_name'],"</b>";
+			echo "<br>Rating - ",$rows['hotel_ratings']," star.";
+			echo "<br>Price - Included","</h3>";
 			
         ?>
     </div>
