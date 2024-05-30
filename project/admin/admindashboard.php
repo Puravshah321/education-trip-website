@@ -1,6 +1,16 @@
 <?php
 session_start();
 
+// Check if the admin is logged in
+if (!isset($_SESSION['AdminLoginId'])) {
+    // Redirect to login page if not logged in
+    header("Location: adminlogin.php");
+    exit(); // Prevent further execution
+}
+
+// Fetch admin name from the session
+$admin_name = $_SESSION['AdminLoginId'];
+
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -81,9 +91,11 @@ $conn->close();
             color: #fff;
             text-decoration: none;
             transition: color 0.3s ease;
+            padding: 10px 15px; /* Add padding to create space between menu items */
+            border-radius: 5px; /* Add rounded corners */
         }
         .nav-menu li a:hover {
-            color: #ffea00;
+            background-color: rgba(255, 255, 255, 0.2); /* Add background color on hover */
         }
         .content {
             flex: 1;
@@ -108,6 +120,13 @@ $conn->close();
             width: 100%;
             height: auto;
         }
+        .admin-name p {
+            margin: 0; /* Remove default margin */
+            transition: color 0.3s ease; /* Add transition effect */
+        }
+        .admin-name p:hover {
+            color: #ffea00; /* Change text color on hover */
+        }
     </style>
 </head>
 <body>
@@ -115,14 +134,18 @@ $conn->close();
         <div class="logo">
             <h1>Admin Panel</h1>
         </div>
-        <nav class="navigation">
+        <div class="navigation">
             <ul class="nav-menu">
-                <li><a href="adminviewjourneys.php">View all Journeys</a></li>
+                <li><a href="#">View all Journeys</a></li>
                 <li><a href="adminviewusers.php">View Users</a></li>
                 <li><a href="adminusers.php">View Admins</a></li>
                 <li><a href="#">Settings</a></li>
+                <li><a href="adminlogout.php">Logout</a></li> <!-- Logout button -->
             </ul>
-        </nav>
+        </div>
+        <div class="admin-name">
+            <p>Welcome, <?php echo $admin_name; ?></p>
+        </div>
     </header>
 
     <div class="container">

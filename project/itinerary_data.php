@@ -6,7 +6,6 @@
     <style>
         /* CSS styles */
         body {
-            font-family: Arial, sans-serif;
             background-color: white;
             margin: 0;
             padding: 0;
@@ -21,9 +20,21 @@
             padding: 20px;
         }
 
+		p{
+			font-size:22px;
+			font-family:arial;
+		}
+		
         h1, h2 {
             color: #333;
+			font-size:30px;
+			font-family:vendana;
         }
+		h3{
+			color: #333;
+			font-size:20px;
+			font-family:vendana;
+		}
 
         .day {
             margin-bottom: 30px;
@@ -45,32 +56,27 @@
 <body>
     <div class="container">
         <?php
-            // Read text file
-            $file_path = 'itinerary_data.txt';
-            $file_content = file_get_contents($file_path);
-
-            // Split content by lines
-            $lines = explode("\n", $file_content);
-
-            // Display title and date
-            echo "<h1>{$lines[0]}</h1>";
-            echo "<h2>{$lines[1]}</h2>";
-			echo "<br><br>";
-            // Extract and display itinerary
-            for ($i = 3; $i < count($lines); ) {
-                if (substr($lines[$i], 0, 4) == 'Day ') {
-                    echo "<div class='day'>";
-                    echo "<h2>{$lines[$i]}</h2>";
-                    echo "<ul>";
-                    $i++;
-                    while ($i < count($lines) && substr($lines[$i], 0, 4) != 'Day ') {
-                        echo "<li>" . str_replace('-', '&#8226;', $lines[$i]) . "</li>";
-                        $i++;
-                    }
-                    echo "</ul>";
-                    echo "</div>";
-                }
-            }
+		
+			$p_id = $_GET["package_id"];
+			
+			$conn = mysqli_connect("localhost","root","","project") or die("Not connected");
+			
+			$query = "SELECT * FROM package where package_id = '$p_id'";
+			$result = mysqli_query($conn,$query);
+			$rows=mysqli_fetch_assoc($result);
+			
+			echo "<center><h1>- ",$rows['package_name']," -</h1>","<br><center>";
+			echo "<center><h3>- ",$rows['package_duration']," Days Tour in ",$rows['filter_state']," -<h3><br><br></center>";
+			
+			$query = "SELECT * FROM itinerary where package_id = '$p_id'";
+			$result = mysqli_query($conn,$query);
+			$i=1;
+			while($rows=mysqli_fetch_assoc($result)){
+			echo "<center><p><b>","Day ",$i++," : ",$rows["description"],"</b><br>";
+			echo ":	  ",$rows["location"],"<br>";
+			echo ": Distance  ",$rows["distance"],"Kms. From Previous Stop.","<br>","<br></p></center>";
+			}
+			
         ?>
     </div>
 </body>

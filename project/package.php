@@ -56,6 +56,21 @@
     color: #fff;
 }
 
+.heading h1{
+    animation: fadeInUp 1s ease;
+}
+
+    @keyframes fadeInUp{
+        from{
+            opacity:0;
+            transform:translateY(20px);
+        }
+        to{
+            opacity:1;
+            transform:translateY(0px);
+
+        }
+    }
 /* Pagination animation */
 @keyframes pulse {
     0% {
@@ -73,7 +88,47 @@
 .pagination-link.active {
     animation: pulse 0.5s ease-in-out infinite alternate;
 }
-   </style>
+
+        .packages .box-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 32px; /* Optional: adds space between boxes */
+            }
+
+        .packages .box-container .box {
+            width: 385px; /* Define a static width for the boxes */
+            height: 520px; /* Define a static height for the boxes */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .packages .box-container .box .image {
+            width: 100%;
+            height: 67%; /* Define height for the image container */
+            overflow: hidden; /* Hide any overflow content */
+        }
+
+        .packages .box-container .box .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire container, preserving aspect ratio */
+        }
+
+        .packages .box-container .box .content {
+            height: 30%; /* Define height for the content container */
+           /*  padding: 10px; Optional: adds padding inside the content box */
+        }
+
+        .packages .box-container .box .content form {
+          display: flex;
+          gap: 2px; /* Space between form elements */
+        }
+
+        .responsive-image {
+            max-width: auto;
+            height: 100%;
+        }
+
+</style>
 
 </head>
 <body>
@@ -110,33 +165,30 @@
 
    <h1 class="heading-title">Select Filters </h1>
 
-   <div class="box-container">
-
-   <div class="box">
+   <div class="box-container"  style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+   <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+   <div class="box"  style="flex: 1; min-width: 200px;">
          <div class="image">
             <img src="images/icon-1.png" alt="">
          </div>
          <div class="content">
             <h3>Trip Class</h3>
-            <form>
-               <select>
+               <select name="package_type">
                   <option value="all">All</option>
                   <option value="standard">Standard</option>
                   <option value="premium">Premium</option>
                   <option value="economy">Economy</option>
                </select>
-            </form>
          </div>
       </div>
 
-      <div class="box">
+      <div class="box"  style="flex: 1; min-width: 200px;">
          <div class="image">
             <img src="images/icon-2.png" alt="">
          </div>
          <div class="content">
             <h3>State</h3>
-            <form>
-               <select>
+               <select name="filter_state">
                   <option value="all">All</option>
                   <option value="andhra-pradesh">Andhra Pradesh</option>
                   <option value="arunachal-pradesh">Arunachal Pradesh</option>
@@ -168,67 +220,73 @@
                   <option value="uttarakhand">Uttarakhand</option>
                   <option value="west-bengal">West Bengal</option>
                </select>
-            </form>
          </div>
       </div>
 
-      <div class="box">
+      <div class="box" style="flex: 1; min-width: 200px;">
          <div class="image">
             <img src="images/icon-3.png" alt="">
          </div>
          <div class="content">
             <h3>Grade</h3>
-            <form>
-               <select>
+               <select name="filter_grade">
                   <option value="all">All</option>
                   <option value="primary">Primary</option>
                   <option value="secondary">Secondary</option>
                   <option value="higher-secondary">Higher Secondary</option>
                </select>
-            </form>
          </div>
       </div>
       
 
-      <div class="box">
+<div class="box" style="flex: 1; min-width: 200px;">
     <div class="image">
         <img src="images/icon-4.png" alt="">
     </div>
     <div class="content">
-        <h3>Season</h3>
-        <form>
-            <select>
+        <h3>Months</h3>
+            <select name="filter_month">
                 <option value="all">All</option>
-                <option value="summer">Summer</option>
-                <option value="autumn">Autumn</option>
-                <option value="winter">Winter</option>
-                <option value="spring">Spring</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
             </select>
-        </form>
     </div>
 </div>
 
 
-<div class="box">
+<div class="box" style="flex: 1; min-width: 200px;">
     <div class="image">
         <img src="images/icon-5.png" alt="">
     </div>
     <div class="content">
         <h3>Categories</h3>
-        <form>
-            <select>
+            <select name = "filter_category">
                 <option value="all">All</option>
-                <option value="history">History</option>
-                <option value="science">Science</option>
-                <option value="nature">Nature</option>
-                <option value="art-and-culture">Art & Culture</option>
-                <option value="technology">Technology</option>
-                <option value="adventure">Adventure</option>
+                <option value="Heritage">Heritage</option>
+                <option value="Industrial">Industrial</option>
+                <option value="Wildlife">Wildlife</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Historial">Historial</option>
             </select>
-        </form>
     </div>
 </div>
-
+<br>
+        <div style="flex-basis: 100%; display: flex; justify-content: center; align-items: center;">
+            <button type="submit" class="btn" style="color: white; text-decoration: none; border: 1px solid black; border-radius: 3px; font-size: 20px; background-color: black; height: 50px; width: 200px;">
+               Apply Filters
+            </button>
+         </div>
+    </form>
 
    </div>
 
@@ -239,105 +297,122 @@
 
 <!-- packages section starts -->
 
-<section class="packages">
+<section id="top-destinations" class="packages">
    <h1 class="heading-title">top destinations</h1>
    <div class="box-container">
-
-   <?php
-// Establish a connection to the database
-$servername = "localhost"; // Change this to your database server name
-$username = "root"; // Change this to your database username
-$password = ""; // Change this to your database password
-$dbname = "project"; // Change this to your database name
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Pagination
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 6; // Number of reviews per page
-$start = ($page - 1) * $limit;
-
-// Fetch reviews from the database with pagination
-$sql = "SELECT * FROM package LIMIT $start, $limit";
-$result = $conn->query($sql);
-// SQL query to fetch package records from the database
-// $sql = "SELECT * FROM package";
-// $result = $conn->query($sql);
-
-// Check if there are records in the result set
-if ($result->num_rows > 0) {
-    // Output data of each row
-    while($row = $result->fetch_assoc()) {
-        // Output HTML for each package
-?>
-        <div class="box">
-        <div class="image">
-            <img src="<?php echo $row['image_id']; ?>" alt="" style="width: 250; height: 500px;">
-         </div>
-
-            <div class="content">
-                <h3><?php echo $row['package_name']; ?></h3>
-                <p><?php echo "Price: Rs." .$row['package_price']; ?></p>
-                <form>
-                    <a href="itinerary.php?package_id=<?php //echo $row['id']; ?>" class="btn">More Details</a>
-                    <select class="dropdown">
-                        <option value="" disabled selected>View Dates</option>
-                        <option value="oct">October 21-23</option>
-                        <option value="nov">November 4-6</option>
-                        <option value="dec">December 12-14</option>
-                    </select>
-                </form>
-            </div>
-        </div>
 <?php
-    }
-} else {
-    echo "0 results"; // Output this if no records found
-}
+                // Establish a connection to the database
+                $servername = "localhost"; // Change this to your database server name
+                $username = "root"; // Change this to your database username
+                $password = ""; // Change this to your database password
+                $dbname = "project"; // Change this to your database name
 
-?>
-</div>
-   <!-- Pagination links -->
-   <div class="pagination">
-       <?php
-       $sql_total = "SELECT COUNT(*) AS total FROM feedback";
-       $result_total = $conn->query($sql_total);
-       $row_total = $result_total->fetch_assoc();
-       $total_pages = ceil($row_total["total"] / $limit);
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
 
-       // Previous page link
-       if ($page > 1) {
-           echo '<a href="?page='.($page - 1).'" class="pagination-link">&laquo; Previous</a>';
-       }
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
 
-       // Page numbers
-       for ($i = 1; $i <= $total_pages; $i++) {
-           echo '<a href="?page='.$i.'" class="pagination-link';
-           if ($i == $page) {
-               echo ' active';
-           }
-           echo '">'.$i.'</a>';
-       }
+                // Pagination
+                $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                $limit = 6; // Number of reviews per page
+                $start = ($page - 1) * $limit;
 
-       // Next page link
-       if ($page < $total_pages) {
-           echo '<a href="?page='.($page + 1).'" class="pagination-link">Next &raquo;</a>';
-       }
+                // Build the WHERE clause based on the filters
+                $whereClause = '';
 
-       
-      // Close connection
-      $conn->close();
-       ?>
+                // Trip Class filter
+                if (isset($_GET['package_type']) && $_GET['package_type'] !== 'all') {
+                    $whereClause .= " package_type = '" . $_GET['package_type'] . "' AND ";
+                }
+
+                // State filter
+                if (isset($_GET['filter_state']) && $_GET['filter_state'] !== 'all') {
+                    $whereClause .= " filter_state = '" . $_GET['filter_state'] . "' AND ";
+                }
+
+                // Grade filter
+                if (isset($_GET['filter_grade']) && $_GET['filter_grade'] !== 'all') {
+                    $whereClause .= " filter_grade = '" . $_GET['filter_grade'] . "' AND ";
+                }
+
+                // Dates filter
+                if (isset($_GET['filter_month']) && $_GET['filter_month'] !== 'all') {
+                    // Assuming your database has a table named 'your_table_name' and three date columns named 'date1', 'date2', and 'date3'
+                    $filterMonth = $_GET['filter_month'];
+                    
+                    // Assuming $whereClause is already initialized
+                    $whereClause .= " (MONTH(package_date1) = '$filterMonth' OR MONTH(package_date2) = '$filterMonth' OR MONTH(package_date3) = '$filterMonth') AND ";
+                }
+                
+
+                // Categories filter
+                if (isset($_GET['filter_category']) && $_GET['filter_category'] !== 'all') {
+                    // Assuming your database has a column named 'categories'
+                    $whereClause .= " filter_category = '" . $_GET['filter_category'] . "' AND ";
+                }
+
+                // Remove the trailing "AND" from the WHERE clause
+                if (!empty($whereClause)) {
+                    $whereClause = 'WHERE ' . rtrim($whereClause, ' AND ');
+                }
+
+                // Construct the SQL query with the WHERE clause
+                $sql = "SELECT * FROM package $whereClause LIMIT $start, $limit";
+
+                $result = $conn->query($sql);
+
+                if ($result !== null && $result instanceof mysqli_result && $result->num_rows > 0) {
+                    // Output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        // Get image dimensions
+                        $imagePath = $row['image_id']; // Assuming image_id contains the path to the image
+                        $imageSize = getimagesize($imagePath);
+                        $imageWidth = $imageSize[0];
+                        $imageHeight = $imageSize[1];
+                
+                        // Output HTML for each package
+                        echo '<div class="box">';
+                        echo '<div class="image">';
+                        echo '<img src="' . $imagePath . '" alt="" style="width: ' . $imageWidth . 'px; height: ' . $imageHeight . 'px;">';
+                        echo '</div>';
+                        echo '<div class="content">';
+                        echo '<h3>' . $row['package_name'] . '</h3>';
+                        echo '<p>Price: Rs.' . $row['package_price'] . '</p>';
+                        echo '<form>';
+                        echo '<a href="itinerary.php?package_id=' . $row['package_id'] . '" class="btn">More Details</a>';
+                        echo '<select class="dropdown">';
+                        echo '<option value="" disabled selected>' . $row['package_date1'] . '</option>';
+                        echo '<option value="" disabled selected>' . $row['package_date2'] . '</option>';
+                        echo '<option value="" disabled selected>' . $row['package_date3'] . '</option>';
+                        echo '<option value="" disabled selected>View Dates</option>';
+                        // echo '<option value="' . $row['package_date1'] . '">' . $row['package_date1'] . '</option>';
+                        // echo '<option value="' . $row['package_date2'] . '">' . $row['package_date2'] . '</option>';
+                        // echo '<option value="' . $row['package_date3'] . '">' . $row['package_date3'] . '</option>';
+                        echo '</select>';
+                        echo '</form>';
+                        echo '</div>';
+                        echo '</div>';
+                    }                
+                } else {
+                    echo "<div style='text-align: center;'>";
+                    echo "<h2>";
+                    echo "Sorry, No packages found!"; // Output this if no records found or if $result is null
+                    echo "</h2>";
+                    echo "</div>";                    
+                }
+
+                // Close connection
+                $conn->close();
+    ?>
       
    </div>
 </section>
 <!-- Packages End -->
+
+
 <!-- footer section starts -->
 
 <section class="footer">
@@ -385,14 +460,21 @@ if ($result->num_rows > 0) {
 <!-- footer section ends -->
 
 
-
-   
-
 <!-- swiper js link -->
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
 <!-- custom js file link -->
 <script src="js/script.js"></script>
+
+<!-- Scroll to top destinations on page load -->
+<script>
+window.onload = function() {
+    var topDestinationsSection = document.getElementById("top-destinations");
+    if (topDestinationsSection) {
+        topDestinationsSection.scrollIntoView({ behavior: "smooth" });
+    }
+};
+</script>
 
 </body>
 </html>

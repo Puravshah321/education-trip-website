@@ -160,6 +160,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
 .error {
    color: #FF0000;
 }
+
+
+
+        .packages .box-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 32px; /* Optional: adds space between boxes */
+            }
+
+        .packages .box-container .box {
+            width: 380px; /* Define a static width for the boxes */
+            height: 550px; /* Define a static height for the boxes */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .packages .box-container .box .image {
+            width: 100%;
+            height: 67%; /* Define height for the image container */
+            overflow: hidden; /* Hide any overflow content */
+        }
+
+        .packages .box-container .box .image img {
+            width: 50%;
+            height: 80%;
+            object-fit: cover; /* Cover the entire container, preserving aspect ratio */
+        }
+
+        .packages .box-container .box .content {
+            height: 30%; /* Define height for the content container */
+           /*  padding: 10px; Optional: adds padding inside the content box */
+        }
+
+        .packages .box-container .box .content form {
+          display: flex;
+          gap: 2px; /* Space between form elements */
+        }
+
+        .responsive-image {
+            max-width: auto;
+            height: 100%;
+        }
    </style>
 
 </head>
@@ -168,15 +209,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
 <!-- header section starts  -->
 
 <section class="header">
-<a href="home.php" class="logo" style="text-decoration:none;color:#279e8c;">
-    <i class="bi bi-airplane"></i> Edu-Trips</a>
-
+   <a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="home.php" style="text-decoration:none">home</a>
-      <a href="about.php" style="text-decoration:none">about</a>
-      <a href="package.php" style="text-decoration:none">package</a>
-      <a href="book.php" style="text-decoration:none">book</a>
-      <a href="faq.php" style="text-decoration:none">FAQ</a>
+      <a href="#" onclick="openRegisterModal()" style="text-decoration:none">home</a>
+      <a href="#" onclick="openRegisterModal()"style="text-decoration:none">about</a>
+      <a href="#" onclick="openRegisterModal()"style="text-decoration:none">package</a>
+      <a href="#" onclick="openRegisterModal()" style="text-decoration:none">book</a>
+      <a href="#" onclick="openRegisterModal()" style="text-decoration:none">FAQ</a>
       <div class="login-register">
       <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2" data-bs-toggle="modal" data-bs-target="#LoginModal">
                 Login
@@ -193,8 +232,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
 </section>
 
 <!-- header section ends -->
-      <!-- Register Trigger Modal -->
-    <div class="modal fade" id="RegisterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+
+    <!-- Register Trigger Modal -->
+      <div class="modal fade" id="RegisterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -250,7 +291,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
         </div> 
     </div>
 
-     <!-- Button Trigger Modal -->
+    <!-- Button Trigger Modal -->
      <div class="modal fade" id="LoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -292,7 +333,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
             <div class="content">
                <span>explore, discover, travel</span>
                <h3>travel around the world</h3>
-               <a href="package.php" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
+               <a href="#" onclick="openRegisterModal()" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
             </div>
          </div>
 
@@ -300,7 +341,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
             <div class="content">
                <span>explore, discover, travel</span>
                <h3>discover new places</h3>
-               <a href="package.php" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
+               <a href="#" onclick="openRegisterModal()" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
             </div>
          </div>
 
@@ -308,7 +349,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
             <div class="content">
                <span>explore, discover, travel</span>
                <h3>make your tour worthwhile</h3>
-               <a href="package.php" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
+               <a href="#" onclick="openRegisterModal()" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
             </div>
          </div>
          
@@ -368,78 +409,132 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
 
 <!-- home about section starts  -->
 
+<!-- home about section starts  -->
+
 <section class="home-about">
 
    <div class="image">
-      <img src="images/about-img.jpg" alt="">
+      <img src="images/about-img1.jpeg" alt="">
    </div>
 
    <div class="content">
       <h3>about us</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita et, recusandae nobis fugit modi quibusdam ea assumenda, nulla quisquam repellat rem aliquid sequi maxime sapiente autem ipsum? Nobis, provident voluptate?</p>
-      <a href="about.php" class="btn">read more</a>
+      <p>At Edu Trip, we believe that education extends far beyond the confines of a classroom. We are passionate about providing enriching experiences that inspire, educate, and broaden horizons. With years of expertise in educational travel, we are committed to offering exceptional journeys that foster personal growth, cultural understanding, and lifelong learning.
+
+    Our mission is simple: to ignite curiosity and cultivate a deeper appreciation for the world around us. </p>
+    <a href="#" onclick="openRegisterModal()" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">Read more</a>
+            
    </div>
 
 </section>
 
 <!-- home about section ends -->
 
-<!-- home packages section starts  -->
 
-<section class="home-packages">
+<!-- packages section starts -->
 
-   <h1 class="heading-title"> our packages </h1>
-
+<section class="packages">
+   <h1 class="heading-title">top destinations</h1>
    <div class="box-container">
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-1.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, sint!</p>
-            <a href="book.php" class="btn">book now</a>
-         </div>
-      </div>
+   <?php
+// Establish a connection to the database
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$dbname = "project"; // Change this to your database name
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-2.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, sint!</p>
-            <a href="book.php" class="btn">book now</a>
-         </div>
-      </div>
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Pagination
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$limit = 3; // Number of reviews per page
+$start = ($page - 1) * $limit;
+
+// Fetch reviews from the database with pagination
+$sql = "SELECT * FROM package LIMIT $start, $limit";
+$result = $conn->query($sql);
+
+// Check if user is logged in
+// if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] != true) {
+//     // User is not logged in, restrict access to more details
+//     $buttonLink = 'javascript:void(0);'; // Disable button
+// } 
+
+
+// Check if there are records in the result set
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        // Output HTML for each package
+        $imagePath = $row['image_id']; // Assuming image_id contains the path to the image
+        $imageSize = getimagesize($imagePath);
+        $imageWidth = $imageSize[0];
+        $imageHeight = $imageSize[1];
+
+        // Output HTML for each package
+        echo '<div class="box">';
+        echo '<div class="image">';
+        echo '<img src="' . $imagePath . '" alt="" style="width: ' . $imageWidth . 'px; height: ' . $imageHeight . 'px;">';
+        echo '</div>';
+        echo '<div class="content">';
+        echo '<h3>' . $row['package_name'] . '</h3>';
+        echo '<p>Price: Rs.' . $row['package_price'] . '</p>';
+        echo '<form>';
+        echo '<style>
+
+        .btn{
+         display: inline-block;
+         background: var(--black);
+         margin-top: 1rem;
+         color:var(--white);
+         font-size: 1.6rem;
+         padding:1rem 3rem;
+         cursor: pointer;
+      }
       
-      <div class="box">
-         <div class="image">
-            <img src="images/img-3.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, sint!</p>
-            <a href="book.php" class="btn">book now</a>
-         </div>
-      </div>
+      .btn:hover{
+         background: var(--main-color);
+      }
+      </style>';
+        echo '<a href="#" onclick="openRegisterModal()" class="btn">More Details</a>';
+        echo '<select class="dropdown">';
+        echo '<option value="" disabled selected>' . $row['package_date1'] . '</option>';
+        echo '<option value="" disabled selected>' . $row['package_date2'] . '</option>';
+        echo '<option value="" disabled selected>' . $row['package_date3'] . '</option>';
+        echo '<option value="" disabled selected>View Dates</option>';
+        // echo '<option value="' . $row['package_date1'] . '">' . $row['package_date1'] . '</option>';
+        // echo '<option value="' . $row['package_date2'] . '">' . $row['package_date2'] . '</option>';
+        // echo '<option value="' . $row['package_date3'] . '">' . $row['package_date3'] . '</option>';
+        echo '</select>';
+        echo '</form>';
+        echo '</div>';
+        echo '</div>';
+    }
+}
+$conn->close();
+?>
 
-   </div>
-
-   <div class="load-more"> <a href="package.php" class="btn">load more</a> </div>
-
+</div>
 </section>
-
 <!-- home packages section ends -->
+<div style="text-align: center;">
+        <a href="#" onclick="openRegisterModal()" class="btn" style="color: white;">Load more packages</a>
+    </div>
 
 <!-- home offer section starts  -->
-
+<br>
 <section class="home-offer">
    <div class="content">
-      <h3>upto 50% off</h3>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure tempora assumenda, debitis aliquid nesciunt maiores quas! Magni cumque quaerat saepe!</p>
-      <a href="book.php" class="btn">book now</a>
+      <h1 class="heading-title"> OFFERS </h1>
+      <p> Will be updated soon</p>
+      <!-- <a href="#" onclick="openRegisterModal()" class="btn">book now</a> -->
    </div>
 </section>
 
@@ -451,14 +546,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
 
    <div class="box-container">
 
-      <div class="box">
+   <div class="box">
          <h3>quick links</h3>
          <a href="home.php"> <i class="fas fa-angle-right"></i> home</a>
-         <a href="about.php"> <i class="fas fa-angle-right"></i> about</a>
-         <a href="package.php"> <i class="fas fa-angle-right"></i> package</a>
-         <a href="book.php"> <i class="fas fa-angle-right"></i> book</a>
+         <a href="#" onclick="openRegisterModal()" > <i class="fas fa-angle-right"></i> about</a>
+         <a href="#"onclick="openRegisterModal()" > <i class="fas fa-angle-right"></i> package</a>
+         <a href="#" onclick="openRegisterModal()" > <i class="fas fa-angle-right"></i> book</a>
       </div>
-
       <div class="box">
          <h3>extra links</h3>
          <a href="#"> <i class="fas fa-angle-right"></i> ask questions</a>
@@ -471,8 +565,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
          <h3>contact info</h3>
          <a href="#"> <i class="fas fa-phone"></i> +123-456-7890 </a>
          <a href="#"> <i class="fas fa-phone"></i> +111-222-3333 </a>
-         <a href="#"> <i class="fas fa-envelope"></i> shaikhanas@gmail.com </a>
-         <a href="#"> <i class="fas fa-map"></i> mumbai, india - 400104 </a>
+         <a href="#"> <i class="fas fa-envelope"></i> abc@gmail.com </a>
+         <a href="#"> <i class="fas fa-map"></i> Ahmedabad, India - 380007 </a>
       </div>
 
       <div class="box">
@@ -484,8 +578,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
       </div>
 
    </div>
-
-   <div class="credit"> created by <span>mr. web designer</span> | all rights reserved! </div>
 
 </section>
 
@@ -509,6 +601,14 @@ document.addEventListener("DOMContentLoaded", function() {
         },
     });
 });
+
+function openRegisterModal() {
+        // Select the Register Modal element
+        var registerModal = document.getElementById('RegisterModal');
+        // Open the modal
+        var modal = new bootstrap.Modal(registerModal);
+        modal.show();
+    }
 </script>
 
 <!-- custom js file link  -->

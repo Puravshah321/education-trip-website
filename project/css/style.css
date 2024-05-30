@@ -67,6 +67,7 @@ section{
    text-shadow: var(--text-shadow);
 }
 
+
 .btn{
    display: inline-block;
    background: var(--black);
@@ -80,6 +81,7 @@ section{
 .btn:hover{
    background: var(--main-color);
 }
+
 
 .dropdown {
    display: inline-block;
@@ -507,7 +509,7 @@ section{
 }
 
 .packages .box-container .box .image{
-   height: 350px;
+   height: 300px;
    overflow: hidden;
 }
 

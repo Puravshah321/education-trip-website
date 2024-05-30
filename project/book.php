@@ -35,6 +35,26 @@
          background-color: #000;
          
       }
+      
+      .error {
+         color: #FF0000;
+      }
+
+      .heading h1{
+    animation: fadeInUp 1s ease;
+}
+
+    @keyframes fadeInUp{
+        from{
+            opacity:0;
+            transform:translateY(20px);
+        }
+        to{
+            opacity:1;
+            transform:translateY(0px);
+
+        }
+    }
 
    </style>
 
@@ -67,7 +87,78 @@
 </div>
 
 <!-- booking section starts  -->
+<?php
+			$conn = mysqli_connect("localhost","root","","project") or die("Not connected");
+			$name = $_SESSION['institute_name'];
+			$query = "select *from registration where institute_name= '$name'";
+			$result = mysqli_query($conn,$query);
+			$row = mysqli_fetch_assoc($result);
+			
+			$i_id = $row['institute_id'];
+			$name = $row['institute_name'];
+			$email = $row['institute_email'];
+			$phone = $row['institute_phone_number'];
+			$address = $row['institute_address'];
+			
+			$p_id = $_GET["package_id"];
+			$query = "SELECT * FROM package where package_id = '$p_id'";
+			$result = mysqli_query($conn,$query);
+			$rows=mysqli_fetch_assoc($result);
+			$package = $rows['package_name'];
+			$date1 = $rows['package_date1'];
+			$date2 = $rows['package_date2'];
+			$date3 = $rows['package_date3'];
+			$duration = $rows['package_duration'];
+			
 
+$no_studentErr = $arrivalerr = "";
+
+// Registration
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
+    $institute_name = $_POST['name'];
+    $email = $_POST['email'];
+	$phone_number = $_POST['phone'];
+    $address = $_POST['address'];
+	$package_name = $_POST['location'];
+	$no_student = $_POST['guests'];
+	$arrival = $_POST['arrival'];
+	$Leaving = $_POST['leaving'];
+
+    $uploadok = 1;
+
+    if (empty($no_student)) {
+        $no_studentErr = "No of student is required";
+        $uploadok = 0;
+    } else {
+      $no_student = $_POST['guests'];
+        $uploadok = 1;
+        if ($no_student < 0 || $no_student>50) {
+            $no_studentErr = "Students can be beetween 1 to 50";
+            $uploadok = 0;
+        }
+    }
+
+    if (empty($arrival)) {
+        $arrivalerr = "Date is required";
+        $uploadok = 0;
+    } else {
+         $arrival = $_POST['arrival'];
+    }
+
+    if ($uploadok == 1) {
+        $sql = "INSERT INTO booking (booking_date, institute_id,package_id,institution_name,institution_email,institution_phone_no, institution_address, number_of_student,arrival_date,leaving_date)
+                VALUES (now(),'$i_id','$p_id','$institute_name', '$email', '$phone_number', '$address', '$no_student','$arrival','$Leaving')";
+
+        if ($conn->query($sql) === TRUE) {
+            // header("Location: index.php");
+            // exit;
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+			?>
 <section class="booking">
 
    <h1 class="heading-title">book your trip!</h1>
@@ -77,35 +168,43 @@
       <div class="flex">
          <div class="inputBox">
             <span>name :</span>
-            <input type="text" placeholder="Enter your name" name="name">
+            <input type="text" value="<?php echo $name; ?>" name="name">
          </div>
          <div class="inputBox">
             <span>email :</span>
-            <input type="email" placeholder="Enter your email" name="email">
+            <input type="email" value="<?php echo $email; ?>" name="email">
          </div>
          <div class="inputBox">
             <span>phone :</span>
-            <input type="number" placeholder="Enter Your Phone number" name="phone">
+            <input type="number" value="<?php echo $phone; ?>" name="phone">
          </div>
          <div class="inputBox">
             <span>address :</span>
-            <input type="text" placeholder="enter your address" name="address">
+            <input type="text" value="<?php echo $address; ?>" name="address">
          </div>
          <div class="inputBox">
             <span>Package Name:</span>
-            <input type="text" placeholder="Package Name" name="location">
+            <input type="text" value="<?php echo $package; ?>" name="location">
          </div>
          <div class="inputBox">
             <span>Number of Students:</span>
             <input type="number" placeholder="Enter number of Students" name="guests">
+		    <span class="error">* <?php echo $no_studentErr;?></span>
          </div>
          <div class="inputBox">
-            <span>Arrivals Dates:</span>
-            <input type="date" name="arrivals">
+            <span>Arrivals Dates:</span><br>
+          <center>  <select class="dropdown" name="arrival" onchange="calculateLeavingDate()" style="background-color: white; color: #222; margin-top: 15px; font-size: 16px; border: 1px solid black; padding: 10px; width:585px; height:50px;">
+    <option value="" disabled selected style="background-color: black; color: white;">Select Dates</option>
+    <option value="<?php echo $date1; ?>" style="background-color: black; color: white;"><?php echo $date1; ?></option>
+    <option value="<?php echo $date2; ?>" style="background-color: black; color: white;"><?php echo $date2; ?></option>
+    <option value="<?php echo $date3; ?>" style="background-color: black; color: white;"><?php echo $date3; ?></option>
+</select>
+</center>
+					<span class="error">* <?php echo $arrivalerr;?></span>
          </div>
          <div class="inputBox">
             <span>Leaving Dates:</span>
-            <input type="date" name="leaving">
+            <input type="text"  name="leaving" readonly>
          </div>
       </div>
 
@@ -113,12 +212,27 @@
    </form>
    <br>
    <br>
+   <script>
+    function calculateLeavingDate() {
+        const arrivalDropdown = document.querySelector('select[name="arrival"]');
+        const arrivalDate = arrivalDropdown.options[arrivalDropdown.selectedIndex].value;
+        if (arrivalDate) {
+            const arrival = new Date(arrivalDate);
+            const leaving = new Date(arrival);
+            leaving.setDate(leaving.getDate() + 3); // Add 3 days for example
+            const leavingDateString = leaving.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            document.querySelector('input[name="leaving"]').value = leavingDateString;
+        }
+    }
+</script>
+
    <!-- <h1 class="student-title">Student's Registration :</h1> -->
          <?php
+				
             if(isset($_POST["send"]))
             {
                $number_of_students=$_POST["guests"];
-               if($number_of_students > 0 && $number_of_students < 40)
+               if($number_of_students > 0 && $number_of_students <= 40)
                {
                   echo "<h1 class='student-title'>Student Registration:</h1>";
                   for($i = 1;$i <= $number_of_students;$i++)
@@ -127,7 +241,7 @@
                      <form method="post" class="book-form">
                      <div class="flex1">
                         <div class="inputBox">
-                        <span style="font-size: 23px;"><?php echo $i . " .)" ?></span>
+                        <span style="font-size: 23px;"><?php echo $i . "." ?></span>
                            <!-- <span>Student Name:</span> -->
                            <input type="text" placeholder="Student Name" name="s_name<?php.$i.?>">
                            <!-- <span>Student Age:</span> -->

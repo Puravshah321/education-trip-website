@@ -76,6 +76,22 @@
          background-color: #000;
          
       }
+
+      .heading h1{
+    animation: fadeInUp 1s ease;
+}
+
+    @keyframes fadeInUp{
+        from{
+            opacity:0;
+            transform:translateY(20px);
+        }
+        to{
+            opacity:1;
+            transform:translateY(0px);
+
+        }
+    }
    </style>
 
 </head>
@@ -112,13 +128,14 @@
 <section class="about">
 
    <div class="image">
-      <img src="images/about-img.jpg" alt="">
+      <img src="images/about-img2.jpeg" alt="">
    </div>
 
    <div class="content">
       <h3>why choose us?</h3>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure numquam nulla iusto corporis dolor commodi libero, vitae obcaecati optio rerum ab culpa nesciunt, earum mollitia quasi ipsam non. Aliquid, iure.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid rerum, delectus voluptate aliquam quaerat iusto repellendus error nulla ab atque.</p>
+      <p>At Edu Trip, we believe that education extends far beyond the confines of a classroom. We are passionate about providing enriching experiences that inspire, educate, and broaden horizons. With years of expertise in educational travel, we are committed to offering exceptional journeys that foster personal growth, cultural understanding, and lifelong learning.
+
+Our mission is simple: to ignite curiosity and cultivate a deeper appreciation for the world around us. </p>
       <div class="icons-container">
          <div class="icons">
             <i class="fas fa-map"></i>
@@ -167,7 +184,7 @@ $result = $conn->query($sql);
 
 <section class="reviews">
 
-   <h1 class="heading-title">Clients Reviews</h1>
+   <h1 class="heading-title">FEEDBACKS</h1>
 
    <div class="swiper reviews-slider">
 
@@ -268,9 +285,10 @@ $conn->close();
          <h3>contact info</h3>
          <a href="#"> <i class="fas fa-phone"></i> +123-456-7890 </a>
          <a href="#"> <i class="fas fa-phone"></i> +111-222-3333 </a>
-         <a href="#"> <i class="fas fa-envelope"></i> shaikhanas@gmail.com </a>
-         <a href="#"> <i class="fas fa-map"></i> mumbai, india - 400104 </a>
+         <a href="#"> <i class="fas fa-envelope"></i> abc@gmail.com </a>
+         <a href="#"> <i class="fas fa-map"></i> Ahmedabad, India - 380007 </a>
       </div>
+
 
       <div class="box">
          <h3>follow us</h3>

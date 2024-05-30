@@ -43,7 +43,6 @@ $itinerary = array(
 
 	<style>
 body {
-    font-family: Arial, sans-serif;
     background-color: bisque;
     margin: 0;
     padding: 0;
@@ -110,6 +109,31 @@ h1, h2, h3 {
     margin-bottom: 0;
 }
 
+.navbar {
+    display: flex;
+    align-items: center; /* Vertically center items */
+}
+
+.navbar-links {
+    margin-right: auto; /* Push login-register to the right */
+}
+
+.heading h1{
+    animation: fadeInUp 1s ease;
+}
+
+    @keyframes fadeInUp{
+        from{
+            opacity:0;
+            transform:translateY(20px);
+        }
+        to{
+            opacity:1;
+            transform:translateY(0px);
+
+        }
+    }
+
 	</style>
 	<link rel="stylesheet" href="css/style.css">
 	
@@ -117,20 +141,19 @@ h1, h2, h3 {
 <body>
 
 <section class="header">
-
-<a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
-   <nav class="navbar">
-      <a href="index.php" style="text-decoration:none">home</a>
-      <a href="about.php" style="text-decoration:none">about</a>
-      <a href="package.php" style="text-decoration:none">package</a>
-      <a href="book.php" style="text-decoration:none">book</a>
-      <a href="faq.php" style="text-decoration:none">FAQ</a>
-      <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
-      <div class="login-register">
-      </div>
-   </nav>
-   <div id="menu-btn" class="fas fa-bars"></div>
-
+    <a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
+    <nav class="navbar">
+        <div class="navbar-links">
+            <a href="index.php" style="text-decoration:none">home</a>
+            <a href="about.php" style="text-decoration:none">about</a>
+            <a href="package.php" style="text-decoration:none">package</a>
+            <a href="book.php" style="text-decoration:none">book</a>
+            <a href="faq.php" style="text-decoration:none">FAQ</a>
+        </div>
+        <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
+        <div class="login-register"></div>
+    </nav>
+    <div id="menu-btn" class="fas fa-bars"></div>
 </section>
 
 <div class="heading" style="background:url(images/header-bg-2.png) no-repeat">
@@ -143,7 +166,7 @@ h1, h2, h3 {
         <?php include 'itinerary_data.php'; ?>
         <?php foreach ($itinerary as $day => $details): ?>
             <div class="day">
-                <h1>Day <?php echo $day; ?></h1>
+                <h1>Activity <?php echo $day; ?></h1>
                 <div class="activities">
                     <?php foreach ($details['activities'] as $activity): ?>
                         <div class="activity">
@@ -159,7 +182,8 @@ h1, h2, h3 {
                 </div>
             </div>
         <?php endforeach; ?>
-		<center><a href="book.php" class="btn">book now</a></center>
+			<?php	$p_id = $_GET["package_id"];?>
+		<center><a href="book.php?package_id=<?php echo $p_id; ?>" class="btn">book now</a></center>
     </div>
 
 	<section class="footer">

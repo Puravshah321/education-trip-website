@@ -39,6 +39,7 @@
 
    <style>
       /* Custom CSS for login and register buttons */
+      
       .navbar {
    display: flex; /* Use flexbox to align items */
    align-items: center; /* Align items vertically in the center */
@@ -55,7 +56,42 @@
    
 }
 
-   </style>
+
+.packages .box-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 32px; /* Optional: adds space between boxes */
+}
+
+.packages .box-container .box {
+   width: 385px; /* Define a static width for the boxes */
+   height: 550px; /* Define a static height for the boxes */
+   box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.packages .box-container .box .image {
+   width: 100%;
+   height: 67%; /* Define height for the image container */
+   overflow: hidden; /* Hide any overflow content */
+}
+
+.packages .box-container .box .image img {
+   width: 50%;
+   height: 80%;
+   object-fit: cover; /* Cover the entire container, preserving aspect ratio */
+}
+
+.packages .box-container .box .content {
+   height: 30%; /* Define height for the content container */
+   /*  padding: 10px; Optional: adds padding inside the content box */
+}
+
+.packages .box-container .box .content form {
+   display: flex;
+   gap: 2px; /* Space between form elements */
+}
+
+</style>
 
 </head>
 <body>
@@ -176,7 +212,7 @@
             <div class="content">
                <span>explore, discover, travel</span>
                <h3>travel around the world</h3>
-               <a href="package.php" class="btn">discover more</a>
+               <a href="package.php" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
             </div>
          </div>
 
@@ -184,7 +220,7 @@
             <div class="content">
                <span>explore, discover, travel</span>
                <h3>discover new places</h3>
-               <a href="package.php" class="btn">discover more</a>
+               <a href="package.php" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
             </div>
          </div>
 
@@ -192,7 +228,7 @@
             <div class="content">
                <span>explore, discover, travel</span>
                <h3>make your tour worthwhile</h3>
-               <a href="package.php" class="btn">discover more</a>
+               <a href="package.php" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">discover more</a>
             </div>
          </div>
          
@@ -255,13 +291,16 @@
 <section class="home-about">
 
    <div class="image">
-      <img src="images/about-img.jpg" alt="">
+      <img src="images/about-img1.jpeg" alt="">
    </div>
 
    <div class="content">
       <h3>about us</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita et, recusandae nobis fugit modi quibusdam ea assumenda, nulla quisquam repellat rem aliquid sequi maxime sapiente autem ipsum? Nobis, provident voluptate?</p>
-      <a href="about.php" class="btn">read more</a>
+      <p>At Edu Trip, we believe that education extends far beyond the confines of a classroom. We are passionate about providing enriching experiences that inspire, educate, and broaden horizons. With years of expertise in educational travel, we are committed to offering exceptional journeys that foster personal growth, cultural understanding, and lifelong learning.
+
+Our mission is simple: to ignite curiosity and cultivate a deeper appreciation for the world around us. </p>
+<a href="about.php" class="btn" style="color: white; text-decoration: none; padding: 5px 10px; border: 1px solid black; border-radius: 3px;font-size:20px;background-color:black;height:40px; width:200px;">Read more</a>
+           
    </div>
 
 </section>
@@ -270,50 +309,98 @@
 
 <!-- home packages section starts  -->
 
-<section class="home-packages">
 
-   <h1 class="heading-title"> our packages </h1>
+<!-- packages section starts -->
 
+<section class="packages">
+   <h1 class="heading-title">top destinations</h1>
    <div class="box-container">
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-1.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, sint!</p>
-            <a href="book.php" class="btn">book now</a>
-         </div>
-      </div>
+   <?php
+// Establish a connection to the database
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$dbname = "project"; // Change this to your database name
 
-      <div class="box">
-         <div class="image">
-            <img src="images/img-2.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, sint!</p>
-            <a href="book.php" class="btn">book now</a>
-         </div>
-      </div>
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Pagination
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$limit = 3; // Number of reviews per page
+$start = ($page - 1) * $limit;
+
+// Fetch reviews from the database with pagination
+$sql = "SELECT * FROM package LIMIT $start, $limit";
+$result = $conn->query($sql);
+// SQL query to fetch package records from the database
+// $sql = "SELECT * FROM package";
+// $result = $conn->query($sql);
+
+// Check if there are records in the result set
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        // Output HTML for each package
+        $imagePath = $row['image_id']; // Assuming image_id contains the path to the image
+        $imageSize = getimagesize($imagePath);
+        $imageWidth = $imageSize[0];
+        $imageHeight = $imageSize[1];
+
+        // Output HTML for each package
+        echo '<div class="box">';
+        echo '<div class="image">';
+        echo '<img src="' . $imagePath . '" alt="" style="width: ' . $imageWidth . 'px; height: ' . $imageHeight . 'px;">';
+        echo '</div>';
+        echo '<div class="content">';
+        echo '<h3>' . $row['package_name'] . '</h3>';
+        echo '<p>Price: Rs.' . $row['package_price'] . '</p>';
+        echo '<form>';
+        echo '<style>
+        .btn{
+         display: inline-block;
+         background: var(--black);
+         margin-top: 1rem;
+         color:var(--white);
+         font-size: 1.7rem;
+         padding:1rem 3rem;
+         cursor: pointer;
+      }
       
-      <div class="box">
-         <div class="image">
-            <img src="images/img-3.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>adventure & tour</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, sint!</p>
-            <a href="book.php" class="btn">book now</a>
-         </div>
-      </div>
+      .btn:hover{
+         background: var(--main-color);
+      }
+      </style>';
 
-   </div>
+echo '<a href="itinerary.php?package_id=' . $row['package_id'] . '" class="btn">More Details</a>';
 
-   <div class="load-more"> <a href="package.php" class="btn">load more</a> </div>
-
+        echo '<select class="dropdown">';
+        echo '<option value="" disabled selected>' . $row['package_date1'] . '</option>';
+        echo '<option value="" disabled selected>' . $row['package_date2'] . '</option>';
+        echo '<option value="" disabled selected>' . $row['package_date3'] . '</option>';
+        echo '<option value="" disabled selected>View Dates</option>';
+        // echo '<option value="' . $row['package_date1'] . '">' . $row['package_date1'] . '</option>';
+        // echo '<option value="' . $row['package_date2'] . '">' . $row['package_date2'] . '</option>';
+        // echo '<option value="' . $row['package_date3'] . '">' . $row['package_date3'] . '</option>';
+        echo '</select>';
+        echo '</form>';
+        echo '</div>';
+        echo '</div>';
+    }
+}
+$conn->close();
+?>
+</div>
 </section>
+<div style="text-align: center;">
+    <a href="package.php" class="btn" style="color: white;">Load more packages</a>
+</div>
 
 <!-- home packages section ends -->
 
@@ -322,8 +409,8 @@
 <section class="home-offer">
    <div class="content">
       <h3>upto 50% off</h3>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure tempora assumenda, debitis aliquid nesciunt maiores quas! Magni cumque quaerat saepe!</p>
-      <a href="book.php" class="btn">book now</a>
+      <p>Upcoming Offers will be there soon</p>
+      <!-- <a href="#" class="btn">book now</a> -->
    </div>
 </section>
 

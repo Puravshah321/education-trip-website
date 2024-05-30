@@ -102,7 +102,7 @@ $result = mysqli_query($conn, $sql);
 <h1>User Database</h1>
 
 <div class="go-back">
-    <a href="admindashboard.php;">&laquo; Go Back</a>
+    <a href="admindashboard.php">&laquo; Go Back</a>
 </div>
 
 <table>
