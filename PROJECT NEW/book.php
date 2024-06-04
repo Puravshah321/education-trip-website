@@ -1,5 +1,6 @@
 <?php
    session_start();
+   use SimpleExcel\SimpleExcel; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,7 +91,7 @@
 <?php
 			$conn = mysqli_connect("localhost","root","","project") or die("Not connected");
 			$name = $_SESSION['institute_name'];
-			$query = "select *from registration where institute_name= '$name'";
+			$query = "SELECT * FROM registration WHERE institute_name= '$name'";
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			
@@ -111,7 +112,9 @@
 			$duration = $rows['package_duration'];
 			
 
-$no_studentErr = $arrivalerr = "";
+      $no_studentErr = $arrivalerr = "";
+
+
 
 // Registration
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
@@ -126,90 +129,133 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
 
     $uploadok = 1;
 
-    if (empty($no_student)) {
+    if (empty($no_student)) 
+    {
         $no_studentErr = "No of student is required";
         $uploadok = 0;
-    } else {
+    } 
+    else 
+    {
       $no_student = $_POST['guests'];
         $uploadok = 1;
-        if ($no_student < 0 || $no_student>50) {
+        
+        if ($no_student < 0 || $no_student>50) 
+        {
             $no_studentErr = "Students can be beetween 1 to 50";
             $uploadok = 0;
         }
     }
 
-    if (empty($arrival)) {
+    if (empty($arrival)) 
+    {
         $arrivalerr = "Date is required";
         $uploadok = 0;
-    } else {
+    } 
+    else 
+    {
          $arrival = $_POST['arrival'];
     }
 
-    if ($uploadok == 1) {
+    if ($uploadok == 1) 
+    {
         $sql = "INSERT INTO booking (booking_date, institute_id,package_id,institution_name,institution_email,institution_phone_no, institution_address, number_of_student,arrival_date,leaving_date)
                 VALUES (now(),'$i_id','$p_id','$institute_name', '$email', '$phone_number', '$address', '$no_student','$arrival','$Leaving')";
 
-        if ($conn->query($sql) === TRUE) {
+        if ($conn->query($sql) === TRUE) 
+        {
             // header("Location: index.php");
             // exit;
-        } else {
+        } 
+        else 
+        {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
+
+    if(move_uploaded_file($_FILES['excel_file']['tmp_name'],$_FILES['excel_file']['name']))
+    {
+       require_once('SimpleExcel/SimpleExcel.php');
+
+       $excel = new SimpleExcel('csv');                   
+       $excel->parser->loadFile($_FILES['excel_file']['name']);            
+ 
+       $foo = $excel->parser->getField();         
+       
+       $count = 0;
+
+       while(count($foo)>$count)
+       {
+         $stu_name = $foo[$count][0];
+         $stu_age = $foo[$count][1];
+         $stu_g_num = $foo[$count][2];
+         $query = "INSERT INTO student(student_name,student_age,guardian_num) VALUES ('$stu_name' , '$stu_age' , '$stu_g_num')"; 
+         mysqli_query($conn,$query);
+         $count++;
+       }
+       
+
+    }
 }
 
-			?>
+?>
 <section class="booking">
 
    <h1 class="heading-title">book your trip!</h1>
 
-   <form method="post" class="book-form">
+   <form method="post" class="book-form" enctype="multipart/form-data">
 
-      <div class="flex">
-         <div class="inputBox">
-            <span>name :</span>
-            <input type="text" value="<?php echo $name; ?>" name="name">
-         </div>
-         <div class="inputBox">
-            <span>email :</span>
-            <input type="email" value="<?php echo $email; ?>" name="email">
-         </div>
-         <div class="inputBox">
-            <span>phone :</span>
-            <input type="number" value="<?php echo $phone; ?>" name="phone">
-         </div>
-         <div class="inputBox">
-            <span>address :</span>
-            <input type="text" value="<?php echo $address; ?>" name="address">
-         </div>
-         <div class="inputBox">
-            <span>Package Name:</span>
-            <input type="text" value="<?php echo $package; ?>" name="location">
-         </div>
-         <div class="inputBox">
-            <span>Number of Students:</span>
-            <input type="number" placeholder="Enter number of Students" name="guests">
-		    <span class="error">* <?php echo $no_studentErr;?></span>
-         </div>
-         <div class="inputBox">
-            <span>Arrivals Dates:</span><br>
-          <center>  <select class="dropdown" name="arrival" onchange="calculateLeavingDate()" style="background-color: white; color: #222; margin-top: 15px; font-size: 16px; border: 1px solid black; padding: 10px; width:585px; height:50px;">
-    <option value="" disabled selected style="background-color: black; color: white;">Select Dates</option>
-    <option value="<?php echo $date1; ?>" style="background-color: black; color: white;"><?php echo $date1; ?></option>
-    <option value="<?php echo $date2; ?>" style="background-color: black; color: white;"><?php echo $date2; ?></option>
-    <option value="<?php echo $date3; ?>" style="background-color: black; color: white;"><?php echo $date3; ?></option>
-</select>
-</center>
-					<span class="error">* <?php echo $arrivalerr;?></span>
-         </div>
-         <div class="inputBox">
-            <span>Leaving Dates:</span>
-            <input type="text"  name="leaving" readonly>
-         </div>
-      </div>
+<div class="flex">
+   <div class="inputBox">
+      <span>name :</span>
+      <input type="text" value="<?php echo $name; ?>" name="name">
+   </div>
+   <div class="inputBox">
+      <span>email :</span>
+      <input type="email" value="<?php echo $email; ?>" name="email">
+   </div>
+   <div class="inputBox">
+      <span>phone :</span>
+      <input type="number" value="<?php echo $phone; ?>" name="phone">
+   </div>
+   <div class="inputBox">
+      <span>address :</span>
+      <input type="text" value="<?php echo $address; ?>" name="address">
+   </div>
+   <div class="inputBox">
+      <span>Package Name:</span>
+      <input type="text" value="<?php echo $package; ?>" name="location">
+   </div>
+   <div class="inputBox">
+      <span>Number of Students:</span>
+      <input type="number" placeholder="Enter number of Students" name="guests">
+    <span class="error">* <?php echo $no_studentErr;?></span>
+   </div>
+   <div class="inputBox">
+      <span>Arrivals Dates:</span><br>
+      <select class="dropdown" name="arrival" onchange="calculateLeavingDate()" style="background-color: white; color: #222; margin-top: 15px; font-size: 16px; border: 1px solid black; padding: 10px; width:585px; height:50px;">
+         <option value="" disabled selected style="background-color: black; color: white;">Select Dates</option>
+         <option value="<?php echo $date1; ?>" style="background-color: black; color: white;"><?php echo $date1; ?></option>
+         <option value="<?php echo $date2; ?>" style="background-color: black; color: white;"><?php echo $date2; ?></option>
+         <option value="<?php echo $date3; ?>" style="background-color: black; color: white;"><?php echo $date3; ?></option>
+      </select>
+      <span class="error">* <?php echo $arrivalerr;?></span>
+   </div>
+   
+   <div class="inputBox">
+      <span>Leaving Dates:</span>
+      <input type="text"  name="leaving" readonly>
+   </div>
 
-      <input type="submit" value="submit" class="btnsub" name="send">
-   </form>
+   <div class="inputBox">
+      <span>Upload Student's Info: </span>
+      <input type="file" placeholder="Enter number of Students" name="excel_file" accept=".csv">
+      <!-- <input type="submit" name="import" value="import"> -->
+   </div>
+
+</div>
+
+<input type="submit" value="submit" class="btnsub" name="send">
+</form>
    <br>
    <br>
    <script>
@@ -238,7 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
                   for($i = 1;$i <= $number_of_students;$i++)
                   {
          ?>
-                     <form method="post" class="book-form">
+                     <form method="post" class="book-form" enctype="multipart/form-data">
                      <div class="flex1">
                         <div class="inputBox">
                         <span style="font-size: 23px;"><?php echo $i . "." ?></span>
