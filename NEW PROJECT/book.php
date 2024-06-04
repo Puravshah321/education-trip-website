@@ -89,7 +89,7 @@
 
 <!-- booking section starts  -->
 <?php
-			$conn = mysqli_connect("localhost","root","","project") or die("Not connected");
+			$conn = mysqli_connect("localhost","root","","project1") or die("Not connected");
 			$name = $_SESSION['institute_name'];
 			$query = "SELECT * FROM registration WHERE institute_name= '$name'";
 			$result = mysqli_query($conn,$query);
@@ -188,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
          $stu_name = $foo[$count][0];
          $stu_age = $foo[$count][1];
          $stu_g_num = $foo[$count][2];
-         $query = "INSERT INTO student(student_name,student_age,guardian_num) VALUES ('$stu_name' , '$stu_age' , '$stu_g_num')"; 
+         $query = "INSERT INTO student(institute_id,student_name,student_age,guardian_num) VALUES('$i_id','$stu_name','$stu_age','$stu_g_num')"; 
          mysqli_query($conn,$query);
          $count++;
        }
@@ -249,7 +249,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
    <div class="inputBox">
       <span>Upload Student's Info: </span>
       <input type="file" placeholder="Enter number of Students" name="excel_file" accept=".csv">
-      <!-- <input type="submit" name="import" value="import"> -->
    </div>
 
 </div>
@@ -277,23 +276,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
 				
             if(isset($_POST["send"]))
             {
+				$query = "SELECT *from student where institute_id = '$i_id'";
+				$result = mysqli_query($conn,$query);
                $number_of_students=$_POST["guests"];
                if($number_of_students > 0 && $number_of_students <= 40)
                {
                   echo "<h1 class='student-title'>Student Registration:</h1>";
                   for($i = 1;$i <= $number_of_students;$i++)
                   {
+					  $row = mysqli_fetch_assoc($result);
          ?>
                      <form method="post" class="book-form" enctype="multipart/form-data">
                      <div class="flex1">
                         <div class="inputBox">
                         <span style="font-size: 23px;"><?php echo $i . "." ?></span>
                            <!-- <span>Student Name:</span> -->
-                           <input type="text" placeholder="Student Name" name="s_name<?php.$i.?>">
+                           <input type="text" value="Name = <?php echo $row['student_name'];?>" name="s_name<?php.$i.?>">
                            <!-- <span>Student Age:</span> -->
-                           <input type="number" placeholder="Student Age" name="s_number<?php.$i.?>">
+                           <input type="text" value="Age = <?php echo $row['student_age'];?>" name="s_number<?php.$i.?>">
                            <!-- <span>Guardian's Phone Number:</span> -->
-                           <input type="text" placeholder="Student Phone Number" name="s_number<?php.$i.?>">
+                           <input type="text" value="Ph. Number = <?php echo $row['guardian_num'];?>" name="s_number<?php.$i.?>">
                         </div>
                      </div>
                      
