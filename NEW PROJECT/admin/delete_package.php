@@ -5,27 +5,35 @@ $username = "root";
 $password = "";
 $dbname = "project";
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }
 
-if (isset($_GET['id'])) {
+// Check if package_id is set and not empty
+if (isset($_GET['id']) && !empty($_GET['id'])) {
   $package_id = $_GET['id'];
-  $sql = "DELETE FROM package WHERE package_id=?";
-  $stmt = mysqli_prepare($conn, $sql);
-  mysqli_stmt_bind_param($stmt, "i", $package_id);
-  if (mysqli_stmt_execute($stmt)) {
+
+  // Construct SQL query to delete package
+  $sql = "DELETE FROM package WHERE package_id = '$package_id'";
+
+  // Execute the delete query
+  if ($conn->query($sql) === TRUE) {
     echo "Package deleted successfully.";
   } else {
-    echo "Error: " . mysqli_error($conn);
+    echo "Error deleting package: " . $conn->error;
   }
-  mysqli_stmt_close($stmt);
+} else {
+  echo "Package ID not specified.";
 }
 
+// Close the database connection
+$conn->close();
+
 // Redirect to view journeys page
-header("Location: admin_view_journeys.php");
+header("Location: adminviewjourneys.php");
 exit();
 ?>
