@@ -89,7 +89,7 @@
 
 <!-- booking section starts  -->
 <?php
-			$conn = mysqli_connect("localhost","root","","project1") or die("Not connected");
+			$conn = mysqli_connect("localhost","root","","project") or die("Not connected");
 			$name = $_SESSION['institute_name'];
 			$query = "SELECT * FROM registration WHERE institute_name= '$name'";
 			$result = mysqli_query($conn,$query);
@@ -264,7 +264,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
         if (arrivalDate) {
             const arrival = new Date(arrivalDate);
             const leaving = new Date(arrival);
-            leaving.setDate(leaving.getDate() + 3); // Add 3 days for example
+<?php
+         $query = "SELECT * FROM package where package_id = '$p_id'";
+			$result = mysqli_query($conn,$query);
+			$rows=mysqli_fetch_assoc($result);
+			$dur = $rows['package_duration'];?>
+
+            leaving.setDate(leaving.getDate() + <?php echo $dur; ?>); // Add 3 days for example
             const leavingDateString = leaving.toISOString().split('T')[0]; // Format as YYYY-MM-DD
             document.querySelector('input[name="leaving"]').value = leavingDateString;
         }
@@ -291,11 +297,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
                         <div class="inputBox">
                         <span style="font-size: 23px;"><?php echo $i . "." ?></span>
                            <!-- <span>Student Name:</span> -->
-                           <input type="text" value="Name = <?php echo $row['student_name'];?>" name="s_name<?php.$i.?>">
+                           <input type="text" value="<?php echo $row['student_name'];?>" name="s_name<?php.$i.?>">
                            <!-- <span>Student Age:</span> -->
-                           <input type="text" value="Age = <?php echo $row['student_age'];?>" name="s_number<?php.$i.?>">
+                           <input type="text" value="<?php echo $row['student_age'];?>" name="s_number<?php.$i.?>">
                            <!-- <span>Guardian's Phone Number:</span> -->
-                           <input type="text" value="Ph. Number = <?php echo $row['guardian_num'];?>" name="s_number<?php.$i.?>">
+                           <input type="text" value="<?php echo $row['guardian_num'];?>" name="s_number<?php.$i.?>">
                         </div>
                      </div>
                      
