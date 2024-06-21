@@ -346,8 +346,8 @@
             while ($row = $result->fetch_assoc()) {
                 $imagePath = $row['image_id'];
                 $imageSize = getimagesize($imagePath);
-                $imageWidth = $imageSize[0];
-                $imageHeight = $imageSize[1];
+                $imageWidth = 400;
+                $imageHeight = 350;
 
                 echo '<div class="box">';
                 echo '<div class="image">';
