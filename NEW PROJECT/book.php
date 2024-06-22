@@ -32,6 +32,13 @@ $package_price = $rows['package_price']; // Package price
 $no_studentErr = "";
 $arrivalerr = "";
 $csv_error = "";
+$captchaerr = "";
+
+
+// Flag to check if both steps are completed
+$booking_confirmed = false;
+$details_confirmed = false;
+
 
 // Registration handling
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
@@ -44,8 +51,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
     $arrival = $_POST['arrival'];
     $leaving = $_POST['leaving'];
     $total_payment = $no_student * $package_price;
+    $captcha = $_REQUEST['captcha'];
+    $captcharandom = $_REQUEST['captcha-rand'];
 
     $uploadok = 1;
+
+    // Validate captcha
+    if ($captcha != $captcharandom) {
+      $captchaerr= "Captcha entered is invalid!";
+      $uploadok = 0;
+      //echo '<script>alert("Invalid Captcha Value");</script>';
+   }
 
     // Validate number of students
     if (empty($no_student)) {
@@ -98,17 +114,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
 
     // Insert booking details if all validations passed
     if ($uploadok == 1) {
-        $sql = "INSERT INTO booking (booking_date, institute_id, package_id, institution_name, institution_email, institution_phone_no, institution_address, number_of_student, arrival_date, leaving_date, total_payment)
-                VALUES (NOW(), '$i_id', '$p_id', '$institute_name', '$email', '$phone_number', '$address', '$no_student', '$arrival', '$leaving', '$total_payment')";
-        if ($conn->query($sql) === TRUE) {
-            // Redirect or display success message
-            // header("Location: index.php");
-            // exit;
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
+      $sql = "INSERT INTO booking (booking_date, institute_id, package_id, institution_name, institution_email, institution_phone_no, institution_address, number_of_student, arrival_date, leaving_date,total_payment)
+              VALUES (NOW(), '$i_id', '$p_id', '$institute_name', '$email', '$phone_number', '$address', '$no_student', '$arrival', '$leaving', '$total_payment')";
+      if ($conn->query($sql) === TRUE) {
+          $_SESSION['booking_confirmed'] = true;
+          $booking_confirmed = true;
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  }
 }
+
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["stu_submit"])) 
+  {
+      $number_of_students = 0;
+
+      // Check if $_POST["guests"] is set and not empty
+      if (isset($_POST["guests"]) && !empty($_POST["guests"])) {
+         $number_of_students = $_POST["guests"];
+      }
+
+      // Display each student's information
+      for ($i = 1; $i <= $number_of_students; $i++) {
+         $row = mysqli_fetch_assoc($result);
+         // Display student information here
+      }
+      // Ensure booking is confirmed first
+      if ($_SESSION['booking_confirmed']) {
+         
+         for ($i = 1; $i <= $number_of_students; $i++) {
+            $stu_name = $_POST["s_name{$i}"];
+            $stu_age = $_POST["s_age{$i}"];
+            $stu_g_num = $_POST["s_guardian{$i}"];
+            $query = "INSERT INTO student(institute_id, student_name, student_age, guardian_num) VALUES('$i_id', '$stu_name', '$stu_age', '$stu_g_num')";
+            mysqli_query($conn, $query);
+         }
+
+         // Set session flag to indicate details confirmation
+         $_SESSION['details_confirmed'] = true;
+         $details_confirmed = true;
+      } else {
+         // Handle case where booking is not confirmed yet
+         // You might want to show an error or redirect to the booking step
+      }
+      }
+
+      // Check both steps are completed before showing the student details form
+//$show_student_registration_form = $booking_confirmed && $details_confirmed;
+
 ?>
 
 <!DOCTYPE html>
@@ -152,6 +206,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
          animation: fadeInUp 1s ease;
       }
 
+      .captcha{
+         width:20%;
+         height: 42%;
+         background: black;
+         color: white;
+         text-align: center;
+         font-size: 30px;
+         margin-top: 17px;
+         font-weight: 300;
+      }
+
       @keyframes fadeInUp {
          from {
             opacity: 0;
@@ -163,11 +228,103 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
          }
       }
 
+      /* CSS for Student Registration Form */
+      .student-title {
+         font-size: 45px;
+         font-weight: bold;
+         margin-top: 35px;
+         margin-bottom: 20px;
+      }
+
+      .book-form {
+         margin-top: 20px;
+      }
+
+      .flex1 {
+         display: flex;
+         flex-wrap: wrap;
+      }
+
+      .student-info {
+         margin-bottom: 10px;
+         width: 100%;
+      }
+
+      .student-number {
+         font-size: 18px;
+         margin-right: 10px;
+      }
+
+      .student-heading {
+         width: 33.33%; /* Adjust width based on your layout */
+         font-weight: bold;
+         padding: 8px;
+         text-align: center;
+         font-size: 25px;
+         margin-left: 140px;
+         margin-right: 130px;/* Adds spacing between headings */
+         box-sizing: border-box; /* Ensure padding and border are included in width calculation */
+      }
+
+      .student-heading:last-child {
+         margin-right: 0; /* Remove right margin from the last heading */
+      }
+      .student-name,
+      .student-age,
+      .guardian-num {
+         width: 31%; /* Adjust based on your layout preference */
+         padding: 8px;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+         margin-right: 10px;
+         margin-bottom: 10px;
+         font-size: 16px;
+         align: center;
+         box-sizing: border-box; /* Ensure padding and border are included in width calculation */
+      }
+
+      .student-name:focus,
+      .student-age:focus,
+      .guardian-num:focus {
+         outline: none;
+         border-color: #279e8c; /* Highlight color on focus */
+      }
+
+      .student-name::placeholder,
+      .student-age::placeholder,
+      .guardian-num::placeholder {
+         color: #999; /* Placeholder text color */
+      }
+
+      .btnsub {
+         background-color: #279e8c;
+         color: white;
+         padding: 10px 20px;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+         margin-top: 20px;
+         font-size: 16px;
+      }
+
+      .btnsub:hover {
+         background-color: #207c6b; /* Darker shade on hover */
+      }
+
+      .error-message {
+         color: #ff0000;
+         font-size: 14px;
+         margin-top: 5px;
+      }
+
    </style>
 
 </head>
 <body>
-   
+<?php
+
+   $rand = rand(9999,1000);
+?>   
 <section class="header">
    <a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
@@ -185,7 +342,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
    <h1>Book Now</h1>
 </div>
 
-<section class="booking">
+<section class="booking" id="student-registration">
    <h1 class="heading-title">Book Your Trip!</h1>
 
    <form method="post" class="book-form" enctype="multipart/form-data">
@@ -239,8 +396,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
             <span>Total Payment:</span>
             <input type="text" name="total_payment" readonly>
          </div>
+
+         <div class="inputBox">
+            <span>Captcha: </span>
+            <input type="text" name="captcha" id="captcha" placeholder="Enter Captcha Code" required data-parsley-trigger="keyup" >
+            <input type="hidden" name="captcha-rand" value="<?php echo $rand; ?>">
+            <span style="color: #FF0000;">* <?php echo $captchaerr; ?></span>
+         </div>
+         <div class="inputBox">
+            <span>Captcha Code: </span>
+            <div class="captcha"><?php echo $rand; ?></div>
+         </div>
+
       </div>
-      <input type="submit" value="Submit" class="btnsub" name="send">
+      <input type="submit" value="Confirm Booking" class="btnsub" name="send">
    </form>
 
    <script>
@@ -272,27 +441,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
 
    <!-- Display student registration form only if CSV validation passed -->
    <?php
-   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"]) && $uploadok == 1) {
-      echo "<h1 class='student-title'>Student Registration:</h1>";
-      echo "<form method='post' class='book-form' enctype='multipart/form-data'>";
-      echo "<div class='flex1'>";
-      $query = "SELECT * FROM student WHERE institute_id = '$i_id'";
-      $result = mysqli_query($conn, $query);
-      $number_of_students = $_POST["guests"];
-      for ($i = 1; $i <= $number_of_students; $i++) {
-         $row = mysqli_fetch_assoc($result);
-         echo "<div class='inputBox'>";
-         echo "<span style='font-size: 23px;'>{$i}.</span>";
-         echo "<input type='text' value='{$row['student_name']}' name='s_name{$i}'>";
-         echo "<input type='text' value='{$row['student_age']}' name='s_age{$i}'>";
-         echo "<input type='text' value='{$row['guardian_num']}' name='s_guardian{$i}'>";
-         echo "</div>";
-      }
-      echo "</div>";
-      echo "<input type='submit' name='stu_submit' class='btnsub' value='Submit'/>";
-      echo "</form>";
-   }
-   ?>
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"]) && $uploadok == 1) {
+    echo "<h1 class='student-title'>Student Registration:</h1>";
+    echo "<form method='post' class='book-form' enctype='multipart/form-data'>";
+    echo "<div class='flex1'>";
+
+    // Fetch student details from the database
+    $query = "SELECT * FROM student WHERE institute_id = '$i_id'";
+    $result = mysqli_query($conn, $query);
+    $number_of_students = $_POST["guests"];
+
+    // Display headings for each student's information
+    echo "<div class='student-info'>";
+    echo "<span class='student-heading'>Name</span>";
+    echo "<span class='student-heading'>Age</span>";
+    echo "<span class='student-heading'>Guardian Number</span>";
+    echo "</div>";
+
+    // Display each student's information
+    for ($i = 1; $i <= $number_of_students; $i++) {
+        $row = mysqli_fetch_assoc($result);
+        echo "<div class='student-info'>";
+        echo "<span class='student-number'>{$i}.</span>";
+        echo "<input type='text' class='student-name' value='{$row['student_name']}' name='s_name{$i}' readonly>";
+        echo "<input type='text' class='student-age' value='{$row['student_age']}' name='s_age{$i}' readonly>";
+        echo "<input type='text' class='guardian-num' value='{$row['guardian_num']}' name='s_guardian{$i}' readonly>";
+        echo "</div>";
+    }
+
+    echo "</div>";
+   echo "<input type='submit' name='stu_submit' class='btnsub' value='Confirm Details'/>";
+    echo "</form>";
+}
+?>
+
+
 </section>
 
 <section class="footer">
