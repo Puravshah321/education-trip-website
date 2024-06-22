@@ -41,14 +41,89 @@
       /* Custom CSS for login and register buttons */
       
       .navbar {
-   display: flex; /* Use flexbox to align items */
-   align-items: center; /* Align items vertically in the center */
+         display: flex;
+         align-items: center;
+      }
+
+      .navbar a {
+         margin-right: 20px;
+         text-decoration: none;
+         color: #fff;
+      }
+
+      .user-dropdown {
+   position: relative;
+   display: inline-block;
+   margin-left: 20px;
 }
 
-.navbar a {
-   margin-right: 20px; /* Add margin between navbar links */
+.user-icon {
+   color: #8a2be2; /* Darker purple color for the user icon */
+   font-size: 24px;
    text-decoration: none;
-   color: #fff;
+   transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.user-icon:hover {
+   color: #6a0dad; /* Lighter purple color on hover */
+}
+
+.dropdown-menu {
+   min-width: 160px;
+   padding: 10px 0; /* Padding inside the dropdown menu */
+   border-radius: 5px; /* Rounded corners for the dropdown */
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a slight elevation */
+   background-color: #fff; /* White background color */
+   position: absolute;
+   top: 50px; /* Adjust this value to position the dropdown vertically */
+   right: 0; /* Adjust this value to position the dropdown horizontally */
+   z-index: 1; /* Ensure the dropdown appears above other elements */
+}
+
+.dropdown-item {
+   color: #333; /* Text color for dropdown items */
+   font-size: 14px;
+   text-decoration: none;
+   display: block;
+   padding: 8px 16px; /* Padding inside each dropdown item */
+   transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.dropdown-item:hover {
+   background-color: #f0f0f0; /* Light grey background color on hover */
+   color: #6a0dad; /* Change text color on hover */
+}
+
+.dropdown-divider {
+   margin: 5px 0; /* Margin for the divider line */
+   border-top: 1px solid #ccc; /* Divider line color */
+}
+
+.dropdown-item-text {
+   font-size: 14px;
+   color: #8a2be2; /* Purplish color for user name */
+   font-weight: bold; /* Bold font weight for user name */
+}
+
+.dropdown-menu .dropdown-item {
+   white-space: nowrap; /* Prevent text wrapping */
+}
+
+.dropdown-menu a {
+   display: block;
+   padding: 8px 16px;
+   color: #333;
+   text-decoration: none;
+   transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+   background-color: #f0f0f0;
+   color: #6a0dad;
+}
+
+.dropdown-menu .dropdown-item-text {
+   color: #8a2be2;
 }
 
 .background {
@@ -107,7 +182,20 @@
       <a href="book.php" style="text-decoration:none">book</a>
       <a href="faq.php" style="text-decoration:none">FAQ</a>
       <!-- <a href="#" style="text-decoration:none">Feedback</a> -->
-      <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
+      <div class="user-dropdown">
+            <a href="#" class="user-icon" id="userDropdown" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+               <i class="fas fa-user"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+               <li><span class="dropdown-item-text">Hello, <?php echo $_SESSION['institute_name']; ?></span></li>
+               <li><hr class="dropdown-divider"></li>
+               <li><a class="dropdown-item" href="#">Profile</a></li>
+               <li><a class="dropdown-item" href="#">Settings</a></li>
+               <li><hr class="dropdown-divider"></li>
+               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+         </div>
       <div class="login-register">
       </div>
    </nav>
@@ -115,92 +203,6 @@
 
    
 </section>
-
-<!-- header section ends -->
-      <!-- Register Trigger Modal -->
-    <div class="modal fade" id="RegisterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form method="post" >
-                    <div class="modal-header">
-                        <h5 class="modal-title d-flex align-items-center">
-                        <i class="fa-solid fa-users-line fs-3 me-2"></i> User Registration <!-- Updated title -->
-                        </h5>
-                        <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6 ps-0 mb-3">
-                                <label class="form-label">Institute Name</label>
-                                <input type="text" name="institute_name" class="form-control shadow-none" placeholder="Enter Institution Name">
-                            </div>
-                            <div class="col-md-6 p-0 mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control shadow-none" placeholder="Enter Your Email">
-                            </div>
-                            
-                            <div class="col-md-6 ps-0 mb-3">
-                                <label class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control shadow-none" placeholder="Enter Your Password">
-                            </div>
-                            <div class="col-md-6 p-0 mb-3">
-                                <label class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control shadow-none" placeholder="Confirm Your Password">
-                            </div>
-                            <div class="col-md-6 p-0 mb-3">
-                                <label class="form-label">Address</label>
-                                <textarea class="form-control shadow-none" name="address" placeholder="Enter Your Address" rows="1"></textarea>
-                            </div>
-                            <div class="col-md-6 ps-0 mb-3">
-                                <label class="form-label">Phone Number</label>
-                                <input type="number" name="phone_number"class="form-control shadow-none" placeholder="Enter Your Phone Number">
-                            </div>
-                            
-                           
-                        </div>
-                        <div class="text-center my-1">
-                            <button type="submit" class="btn btn-dark shadow-none">Register</button> 
-                        </div>
-                    </div>
-
-                    </div>
-                </form>
-            </div>
-        </div> 
-    </div>
-
-     <!-- Button Trigger Modal -->
-     <div class="modal fade" id="LoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h5 class="modal-title d-flex align-items-center">
-                            <i class="fa-solid fa-circle-user fs-3 me-2"></i> User Login
-                        </h5>
-                        <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Email address</label>
-                            <input type="email" class="form-control shadow-none" placeholder="Enter Your Email">
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control shadow-none" placeholder="Enter Your Password">
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <button type="submit" class="btn btn-dark shadow-none">Login</button>
-                            <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-<!-- home section starts  -->
 
 <section class="home">
 
