@@ -14,13 +14,83 @@
    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
    <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
    <!-- Pagination CSS -->
    <style>
+      .user-icon {
+   color: #8a2be2; /* Darker purple color for the user icon */
+   font-size: 24px;
+   text-decoration: none;
+   transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.user-icon:hover {
+   color: #6a0dad; /* Lighter purple color on hover */
+}
+
+.dropdown-menu {
+   min-width: 160px;
+   padding: 10px 0; /* Padding inside the dropdown menu */
+   border-radius: 5px; /* Rounded corners for the dropdown */
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a slight elevation */
+   background-color: #fff; /* White background color */
+   position: absolute;
+   top: 50px; /* Adjust this value to position the dropdown vertically */
+   right: 0; /* Adjust this value to position the dropdown horizontally */
+   z-index: 1; /* Ensure the dropdown appears above other elements */
+}
+
+.dropdown-item {
+   color: #333; /* Text color for dropdown items */
+   font-size: 14px;
+   text-decoration: none;
+   display: block;
+   padding: 8px 16px; /* Padding inside each dropdown item */
+   transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.dropdown-item:hover {
+   background-color: #f0f0f0; /* Light grey background color on hover */
+   color: #6a0dad; /* Change text color on hover */
+}
+
+.dropdown-divider {
+   margin: 5px 0; /* Margin for the divider line */
+   border-top: 1px solid #ccc; /* Divider line color */
+}
+
+.dropdown-item-text {
+   font-size: 14px;
+   color: #8a2be2; /* Purplish color for user name */
+   font-weight: bold; /* Bold font weight for user name */
+}
+
+.dropdown-menu .dropdown-item {
+   white-space: nowrap; /* Prevent text wrapping */
+}
+
+.dropdown-menu a {
+   display: block;
+   padding: 8px 16px;
+   color: #333;
+   text-decoration: none;
+   transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+   background-color: #f0f0f0;
+   color: #6a0dad;
+}
+
+.dropdown-menu .dropdown-item-text {
+   color: #8a2be2;
+}
        .pagination {
     margin-top: 20px;
     text-align: center;
@@ -100,21 +170,34 @@
 <!-- header section starts  -->
 
 <section class="header">
-
-<a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
-
+   <a href="index.php" class="logo" style="text-decoration:none;color:#279e8c;">Edu Trip</a>
    <nav class="navbar">
-      <a href="index.php">home</a>
-      <a href="about.php">about</a>
-      <a href="package.php">package</a>
-      <a href="book.php">book</a>
-      <a href="#" style="text-decoration:none">FAQ</a>
-      <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello,<?php echo $_SESSION['institute_name'];?></h1>
-
+      <a href="index.php" style="text-decoration:none">home</a>
+      <a href="about.php" style="text-decoration:none">about</a>
+      <a href="package.php" style="text-decoration:none">package</a>
+     
+      <a href="faq.php" style="text-decoration:none">FAQ</a>
+      <!-- <a href="#" style="text-decoration:none">Feedback</a> -->
+      <div class="user-dropdown">
+            <a href="#" class="user-icon" id="userDropdown" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+               <i class="fas fa-user" style="color:purple;"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+               <li><span class="dropdown-item-text">Hello, <?php echo $_SESSION['institute_name']; ?></span></li>
+               <li><hr class="dropdown-divider"></li>
+               <li><a class="dropdown-item" href="#">Profile</a></li>
+               <li><a class="dropdown-item" href="#">Settings</a></li>
+               <li><hr class="dropdown-divider"></li>
+               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+         </div>
+      <div class="login-register">
+      </div>
    </nav>
+   
 
-   <div id="menu-btn" class="fas fa-bars"></div>
-
+   
 </section>
 
 <!-- header section ends -->
