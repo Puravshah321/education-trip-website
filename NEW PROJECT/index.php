@@ -179,13 +179,13 @@
       <a href="index.php" style="text-decoration:none">home</a>
       <a href="about.php" style="text-decoration:none">about</a>
       <a href="package.php" style="text-decoration:none">package</a>
-      <a href="book.php" style="text-decoration:none">book</a>
+     
       <a href="faq.php" style="text-decoration:none">FAQ</a>
       <!-- <a href="#" style="text-decoration:none">Feedback</a> -->
       <div class="user-dropdown">
             <a href="#" class="user-icon" id="userDropdown" role="button" data-bs-toggle="dropdown"
                aria-expanded="false">
-               <i class="fas fa-user"></i>
+               <i class="fas fa-user" style="color:purple;"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                <li><span class="dropdown-item-text">Hello, <?php echo $_SESSION['institute_name']; ?></span></li>
