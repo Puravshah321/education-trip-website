@@ -470,7 +470,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"]) && $uploadok =
     }
 
     echo "</div>";
-   echo "<input type='submit' name='stu_submit' class='btnsub' value='Confirm Details'/>";
+    echo "<a href='booking_confirmed.php'><input type='submit' name='stu_submit' class='btnsub' value='Confirm Details'/></a>";
     echo "</form>";
 }
 ?>
@@ -478,29 +478,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"]) && $uploadok =
 
 </section>
 
+
+<!-- footer section starts  -->
+
 <section class="footer">
+
    <div class="box-container">
+
       <div class="box">
-         <h3>Quick Links</h3>
-         <a href="home.php"> <i class="fas fa-angle-right"></i> Home</a>
-         <a href="about.php"> <i class="fas fa-angle-right"></i> About</a>
-         <a href="package.php"> <i class="fas fa-angle-right"></i> Package</a>
-         <a href="book.php"> <i class="fas fa-angle-right"></i> Book</a>
+         <h3>quick links</h3>
+         <a href="index.php"> <i class="fas fa-angle-right"></i> home</a>
+         <a href="about.php"> <i class="fas fa-angle-right"></i> about</a>
+         <a href="package.php"> <i class="fas fa-angle-right"></i> package</a>
       </div>
+
       <div class="box">
-         <h3>Extra Links</h3>
-         <a href="#"> <i class="fas fa-angle-right"></i> Ask Questions</a>
-         <a href="#"> <i class="fas fa-angle-right"></i> About Us</a>
-         <a href="#"> <i class="fas fa-angle-right"></i> Privacy Policy</a>
-         <a href="#"> <i class="fas fa-angle-right"></i> Terms of Use</a>
+         <h3>extra links</h3>
+         <a href="faq.php"> <i class="fas fa-angle-right"></i> ask questions</a>
+         <a href="about.php"> <i class="fas fa-angle-right"></i> about us</a>
+         <a href="#"> <i class="fas fa-angle-right"></i> privacy policy</a>
+         <a href="#"> <i class="fas fa-angle-right"></i> terms of use</a>
       </div>
+
       <div class="box">
-         <h3>Contact Info</h3>
-         <a href="#"> <i class="fas fa-phone"></i> +123-456-7890 </a>
-         <a href="#"> <i class="fas fa-phone"></i> +111-222-3333 </a>
-         <a href="#"> <i class="fas fa-envelope"></i> shaikhanas@gmail.com </a>
-         <a href="#"> <i class="fas fa-map"></i> Mumbai, India - 400104 </a>
+         <h3>contact info</h3>
+         <a href="#"> <i class="fas fa-phone"></i> +91 9898305040 </a>
+         <a href="#"> <i class="fas fa-phone"></i> +91 8160662390 </a>
+         <a href="#"> <i class="fas fa-envelope"></i> edutrip@gmail.com </a>
+         <a href="#"> <i class="fas fa-map"></i> Ahmedabad, india - 382350 </a>
       </div>
+
       <div class="box">
          <h3>follow us</h3>
          <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
@@ -508,8 +515,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"]) && $uploadok =
          <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
          <a href="#"> <i class="fab fa-linkedin"></i> linkedin </a>
       </div>
+
    </div>
-   <div class="credit"> created by <span>mr. web designer</span> | all rights reserved! </div>
+
+<!--   <div class="credit"> created by <span>colledge students</span> | all rights reserved! </div>-->
+
 </section>
 
 <!-- footer section ends -->
