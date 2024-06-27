@@ -331,7 +331,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send"])) {
       <a href="index.php" style="text-decoration:none">home</a>
       <a href="about.php" style="text-decoration:none">about</a>
       <a href="package.php" style="text-decoration:none">package</a>
-      <a href="book.php" style="text-decoration:none">book</a>
+      <!-- <a href="book.php" style="text-decoration:none">book</a> -->
       <a href="faq.php" style="text-decoration:none">FAQ</a>
       <h1 style="color:#A020F0;margin: 0px 0px 0px 20px;font-size:24px;">Hello, <?php echo $_SESSION['institute_name'];?></h1>
    </nav>
